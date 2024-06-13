@@ -1,0 +1,44 @@
+.wrapper_footer {
+  background-color: #CBF7EE;
+  padding: 50px 0px;
+
+  footer {
+    width: 820px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #002F34;
+
+    img {
+      display: block;
+      margin-bottom: 30px;
+    }
+
+    p {
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .block_soc {
+      h4 {
+        font-size: 18px;
+        font-weight: 300;
+        margin-bottom: 20px;
+      }
+
+      .wrapper_soc {
+        width: 300px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        img {
+          width: 32px;
+        }
+      }
+    }
+  }
+}
