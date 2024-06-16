@@ -9,6 +9,7 @@ padding-top: 30px;
 .block_categories {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 
   .card {
     width: 10%;
