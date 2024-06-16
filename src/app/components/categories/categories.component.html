@@ -1,1 +1,13 @@
-<p>categories works!</p>
+<div class="wrapper_categories">
+  <h2>Main categories</h2>
+  <div class="block_categories">
+
+    <div class="card" *ngFor="let card of categoriesData">
+      <img src="{{card.imgPath}}" alt="Photo of categories" class="{{card.class}}">
+      <a href="">{{card.heading}}</a>
+    </div>
+
+
+
+  </div>
+</div>

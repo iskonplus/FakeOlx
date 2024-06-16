@@ -1,0 +1,82 @@
+.wrapper_categories{
+padding-top: 30px;
+  h2{
+  margin-bottom: 40px;
+  font-size: 35px;
+  color: #002F34;
+}
+
+.block_categories {
+  display: flex;
+  flex-wrap: wrap;
+
+  .card {
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0px 5px;
+    margin-bottom: 20px;
+    transition: .3s;
+
+
+    img {
+      border-radius: 50%;
+      width: 90px;
+      height: 90px;
+      padding: 8px;
+      object-fit: contain;
+      margin-bottom: 20px;
+    }
+
+    img.yalow {
+      background-color: #FFCE32;
+    }
+
+    img.blue {
+      background-color: #3A77FF;
+    }
+
+    img.pink {
+      background-color: #FFD6C9;
+    }
+
+    img.green {
+      background-color: #23E5DB;
+    }
+
+    img.orange {
+      background-color: #FF5635;
+    }
+
+    img.lightBlue {
+      background-color: #C8F8F6;
+    }
+
+    img.ochre {
+      background-color: #FFF6D9;
+    }
+
+    a {
+      text-decoration: none;
+      color: #002F34;
+      transition: .3s;
+      padding: 5px;
+      font-weight: 500;
+    }
+
+    a:hover {
+      background-color: #002F34;
+      color: #99b8bc;
+      text-decoration: none;
+    }
+
+  }
+
+  .card:hover {
+    transform: scale(1.15);
+  }
+}
+}
