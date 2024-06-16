@@ -5,17 +5,15 @@
   z-index: 5;
 
   header {
-    width: 1275px;
+    max-width: 1275px;
     display: flex;
     margin: auto;
-
 
     .block_header {
       width: 50%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-
 
       nav {
         width: 100%;
@@ -67,7 +65,6 @@
             border-color: #ffffff;
             background-color: #002F34;
           }
-
 
         }
       }
