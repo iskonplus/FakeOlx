@@ -6,8 +6,11 @@ import { TestComponent } from './components/test/test.component';
 import { NavComponent } from './components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { MatIconModule } from '@angular/material/icon';
 import { MainPageModule } from './pages/main-page/main-page.module';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
 
 
 @NgModule({
@@ -22,7 +25,8 @@ import { MainPageModule } from './pages/main-page/main-page.module';
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
-    MainPageModule
+      MainPageModule,
+
   ],
   providers: [
     provideClientHydration(),
