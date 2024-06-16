@@ -16,6 +16,7 @@ import { MainPageModule } from './pages/main-page/main-page.module';
     TestComponent,
     NavComponent,
     FooterComponent,
+
     ],
     imports: [
     BrowserModule,
