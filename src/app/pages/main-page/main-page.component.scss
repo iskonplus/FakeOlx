@@ -2,9 +2,12 @@
   width: 100%;
   background-color: #ffffff;
 
-.container{
+.container,
+.container.ads{
   max-width: 1270px;
   margin: auto;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 }
