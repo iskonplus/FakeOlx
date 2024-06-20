@@ -8,9 +8,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MainPageModule } from './pages/main-page/main-page.module';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -19,18 +17,17 @@ import {MatInputModule} from '@angular/material/input';
     TestComponent,
     NavComponent,
     FooterComponent,
-
-    ],
-    imports: [
+  ],
+  imports: [
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
-      MainPageModule,
-
+    MainPageModule,
+    HttpClientModule
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent]
 })
