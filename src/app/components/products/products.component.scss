@@ -1,0 +1,82 @@
+.wrapper_products {
+  width: 100%;
+  padding-bottom: 60px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .wrapper_card {
+    width: 25%;
+    padding: 0px 5px 20px;
+    box-sizing: border-box;
+
+
+    mat-card.example-card {
+      width: 100%;
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 180px;
+        object-fit: contain;
+      }
+
+      mat-card-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0px 10px 10px;
+      }
+
+      mat-card-title {
+        width: 100%;
+        height: 80px;
+        overflow: hidden;
+        text-align: start;
+        font-size: 18px;
+
+      }
+
+      .information{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: end;
+
+        a{
+          text-decoration: none;
+          font-size: 12px;
+          color: #6c6c6c;
+        }
+        a:hover{
+          color: #000000;
+        }
+        a::first-letter{
+          text-transform: uppercase;
+        }
+      }
+
+      .favorite {
+        color: #002F34;
+        cursor: pointer;
+        font-size: 23px;
+      }
+
+      .price {
+        font-weight: 600;
+        color: #002F34;
+      }
+    }
+  }
+
+
+  mat-card-actions{
+    align-items: start;
+  }
+
+
+
+}

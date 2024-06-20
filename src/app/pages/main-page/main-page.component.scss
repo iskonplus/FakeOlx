@@ -1,13 +1,16 @@
-.wrapper_container{
+.wrapper_container {
   width: 100%;
   background-color: #ffffff;
+}
 
-.container,
-.container.ads{
+.container {
   max-width: 1270px;
   margin: auto;
   text-align: center;
-  display: flex;
-  justify-content: center;
 }
+
+h2 {
+  margin-bottom: 40px;
+  font-size: 35px;
+  color: #002F34;
 }
