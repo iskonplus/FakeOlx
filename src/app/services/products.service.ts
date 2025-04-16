@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Card } from '../types/card';
 import { Observable } from 'rxjs/internal/Observable';
+import { delay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

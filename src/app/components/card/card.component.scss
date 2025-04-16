@@ -1,0 +1,81 @@
+.wrapper_card {
+    width: 100%;
+    padding: 0px 5px 10px;
+    box-sizing: border-box;
+
+    mat-card.example-card {
+      border-radius: 5px;
+      width: 100%;
+      // height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 180px;
+        object-fit: contain;
+        margin-top: 10px;
+      }
+
+      mat-card-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0px 10px 10px;
+      }
+
+      mat-card-title {
+        width: 100%;
+        height: 60px;
+        overflow: hidden;
+        text-align: start;
+        font-size: 18px;
+
+      }
+
+      .information{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: end;
+
+        a{
+          text-decoration: none;
+          font-size: 12px;
+          color: #6c6c6c;
+        }
+        a:hover{
+          color: #000000;
+        }
+        a::first-letter{
+          text-transform: uppercase;
+        }
+      }
+
+      .favorite {
+        color: #002F34;
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      .favorite.like{
+        color: #FF5636;
+      }
+
+      .price {
+        font-weight: 600;
+        color: #002F34;
+      }
+    }
+  }
+
+
+  mat-card-actions{
+    align-items: start;
+  }
+
+
+
+

@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProductsComponent } from '../../components/products/products.component';
 import {MatButtonModule} from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { CardComponent } from '../../components/card/card.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,8 @@ import { MatCardModule } from '@angular/material/card';
     CategoriesComponent,
     SearchComponent,
     ProductsComponent,
+    CardComponent
+
   ],
   imports: [
     CommonModule,
