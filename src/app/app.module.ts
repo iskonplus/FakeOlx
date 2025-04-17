@@ -11,6 +11,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { LoginComponent } from './components/login/login.component';
+
+
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+
+
 
 
 
@@ -22,13 +35,24 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
     FooterComponent,
     LoginPageComponent,
     UserPageComponent,
+    LoginComponent,
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
     MainPageModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTabsModule,
+
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatCheckboxModule
+
   ],
   providers: [
     provideClientHydration(),

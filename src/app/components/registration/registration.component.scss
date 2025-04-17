@@ -1,0 +1,71 @@
+:host{
+  width: 100%;
+
+  form{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+
+
+
+    input{
+      font-size: 14px;
+      box-shadow: 0 0 0px 1000px #F2F4F5 inset !important;
+      -webkit-box-shadow: 0 0 0px 1000px #F2F4F5 inset !important;
+      -webkit-text-fill-color: #000 !important;
+    }
+
+    .agreement{
+      display: flex;
+      justify-content:space-between;
+      align-items: start;
+      text-align: start;
+      p{
+        margin: 0;
+      }
+    }
+
+  }
+
+  .btn-login {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border: 6px solid #002F34;
+    transition: .3s;
+    font-weight: 400;
+    border-radius: 5px;
+    background-color: #002F34;
+    color: #ffffff;
+    margin-top: 30px;
+
+    mat-icon {
+      margin-left: 20px;
+    }
+
+  }
+
+  .btn-login:hover {
+    background-color: #ffffff;
+    color: #002F34;
+  }
+
+  p{
+    font-size: 12px;
+  }
+
+
+  ::ng-deep .error .mdc-checkbox__background {
+    border-color: #ff0000;
+    background-color: #F2F4F5;
+    transform: rotate(180deg);
+    transition: 1s;
+  }
+}
