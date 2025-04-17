@@ -1,4 +1,12 @@
-main{
-  padding-top: 80px;
+:host{
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 10vh;
+
+  .main{
   background-color: #F2F4F5;
+}
 }
