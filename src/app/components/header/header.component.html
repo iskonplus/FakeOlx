@@ -1,23 +1,23 @@
 <div class="wrapper_header">
-<header>
-  <div class="block_header">
-    <img src="{{imgLogo.url}}" alt="{{imgLogo.alt}}" width="80px">
-  </div>
-  <div class="block_header">
-    <nav>
-      <ul>
-        <li><a href="">
-          <mat-icon>chat_bubble_outline</mat-icon>
-            Notification</a>
-        </li>
-        <li><a href=""><mat-icon class="iconFavorite">favorite_border</mat-icon></a></li>
-        <li><a href="login">
-          <mat-icon>perm_identity</mat-icon>
-            Login</a></li>
-        <li><a href="" class="navSubmit">Submit ads</a></li>
-      </ul>
-    </nav>
+  <header>
+    <div class="block_header">
+      <img (click)="openMainPage()" src="{{imgLogo.url}}" alt="{{imgLogo.alt}}" width="80px">
+    </div>
+    <div class="block_header">
+      <nav>
+        <ul>
+          <li><a href="">
+              <mat-icon>chat_bubble_outline</mat-icon>
+              Notification</a>
+          </li>
+          <li><a href=""><mat-icon class="iconFavorite">favorite_border</mat-icon></a></li>
+          <li><a href="login">
+              <mat-icon>perm_identity</mat-icon>
+              Login</a></li>
+          <li><a href="" class="navSubmit">Submit ads</a></li>
+        </ul>
+      </nav>
 
-  </div>
-</header>
+    </div>
+  </header>
 </div>
