@@ -21,6 +21,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PopupComponent } from './components/popup/popup.component';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 
 
 
@@ -37,6 +44,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     UserPageComponent,
     LoginComponent,
     RegistrationComponent,
+    PopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +59,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogTitle,
 
   ],
   providers: [

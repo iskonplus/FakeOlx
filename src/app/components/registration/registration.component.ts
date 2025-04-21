@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from '../../pages/login-page/services/login.service';
+import { User } from '../../types/user';
 
 @Component({
   selector: 'app-registration',
@@ -7,29 +9,46 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent {
+
+  userData: User = {
+    email: '',
+    password: ''
+  };
+
+
+ @Output() registrationFailed = new EventEmitter<string>();
+
+  constructor(private loginService: LoginService) { }
+
   passwordPattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,}$';
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.pattern(this.passwordPattern)]),
+    password: new FormControl('', [Validators.required]),
+    // password: new FormControl('', [Validators.required, Validators.pattern(this.passwordPattern)]),
     acceptTerms: new FormControl('', [Validators.requiredTrue]),
   });
 
 
   submit() {
-
-
     if (this.loginForm.invalid) {
       return this.loginForm.markAllAsTouched();
     }
 
+    this.userData.email = this.loginForm.get('email')?.value ?? '';
+    this.userData.password = this.loginForm.get('password')?.value ?? '';
 
-    const email = this.loginForm.get('email')?.value;
-    const password = this.loginForm.get('password')?.value;
-    const acceptTerms = this.loginForm.get('acceptTerms')?.value;
+    // const acceptTerms = this.loginForm.get('acceptTerms')?.value;
 
-    console.log(this.loginForm.value);
-    
+
+    this.loginService.userRegistration(this.userData).subscribe({
+      next: data => console.log('resolve: ', data),
+      error: (err) => this.registrationFailed.emit(err.statusText + ', try again.'),
+      complete: () => console.log('first observable complied')
+    })
+
+
+
     this.loginForm.reset({
       email: '',
       password: '',
@@ -37,11 +56,10 @@ export class RegistrationComponent {
     });
 
 
-  Object.keys(this.loginForm.controls).forEach(controlName => {
-    this.loginForm.get(controlName)?.setErrors(null);
-  });
+    Object.keys(this.loginForm.controls).forEach(controlName => {
+      this.loginForm.get(controlName)?.setErrors(null);
+    });
 
-    // Authenticate with an API or Google Firebase Auth
   }
 
 }

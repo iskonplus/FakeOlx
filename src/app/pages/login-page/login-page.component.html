@@ -1,13 +1,3 @@
-<!-- <button type="submit"  class="btn-login registration">
-  Registration
-  <mat-icon>app_registration</mat-icon>
-</button>
-
-<button type="submit"  class="btn-login login">
-  login
-  <mat-icon>login</mat-icon>
-</button> -->
-
 <div class="wrapper-tittle">
   <h3>or</h3>
 </div>
@@ -16,12 +6,13 @@
 <mat-tab-group class="log" animationDuration="0ms">
 
   <mat-tab  label="Log in">
-    <app-login></app-login>
+    <app-login (loginFailed)="handleLoginError($event)"></app-login>
   </mat-tab>
 
   <mat-tab  label="Registration">
-    <app-registration></app-registration>
+    <app-registration (registrationFailed)="handleLoginError($event)"></app-registration>
   </mat-tab>
 
 </mat-tab-group>
+
 
