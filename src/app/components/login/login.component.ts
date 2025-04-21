@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { LoginService } from '../../pages/login-page/services/login.service';
+import { User } from '../../types/user';
 
 
 
@@ -10,6 +11,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  userData: User = {
+    email: '',
+    password: ''
+  };
+
+
+  @Output() loginFailed = new EventEmitter<string>();
+
+  constructor(private loginService: LoginService) { }
+
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
@@ -20,22 +32,24 @@ export class LoginComponent {
       return this.loginForm.markAllAsTouched();
     }
 
+    this.userData.email = this.loginForm.get('email')?.value ?? '';
+    this.userData.password = this.loginForm.get('password')?.value ?? '';;
 
-    const username = this.loginForm.get('email')?.value;
-    const password = this.loginForm.get('password')?.value;
+    this.loginService.userLogin(this.userData)
+      .subscribe({
+        next: data => console.log('resolve: ', data),
+        error: (err) => this.loginFailed.emit('User ' + err.statusText + ', try again.'),
+        complete: () => console.log('first observable complied')
+      })
 
-    console.log(this.loginForm.value);
 
-    this.loginForm.reset({
-      email: '',
-      password: ''
+
+    this.loginForm.reset();
+
+    Object.keys(this.loginForm.controls).forEach(controlName => {
+      this.loginForm.get(controlName)?.setErrors(null);
     });
-
-
-  Object.keys(this.loginForm.controls).forEach(controlName => {
-    this.loginForm.get(controlName)?.setErrors(null);
-  });
-    // Authenticate with an API or Google Firebase Auth
   }
+
 
 }
