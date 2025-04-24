@@ -2,15 +2,23 @@
   <h3>or</h3>
 </div>
 
-
-<mat-tab-group class="log" animationDuration="0ms">
+@if(isSpinnerActive){
+  <mat-spinner class="spinner"></mat-spinner>
+}
+<mat-tab-group class="log" [(selectedIndex)]="selectedTabIndex"  animationDuration="0ms">
 
   <mat-tab  label="Log in">
-    <app-login (loginFailed)="handleLoginError($event)"></app-login>
+    <app-login
+    (showSpinner)="handleSpinner()"
+    (loginFailed)="handleLoginError($event)"></app-login>
   </mat-tab>
 
   <mat-tab  label="Registration">
-    <app-registration (registrationFailed)="handleLoginError($event)"></app-registration>
+    <app-registration
+    (showSpinner)="handleSpinner()"
+    (registrationFailed)="handleLoginError($event)"
+    (registrationSuccess)="handleRegistrationSuccess()"
+    ></app-registration>
   </mat-tab>
 
 </mat-tab-group>

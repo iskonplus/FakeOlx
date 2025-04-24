@@ -13,6 +13,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { LoginComponent } from './components/login/login.component';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 
 import { MatButtonModule } from '@angular/material/button';
@@ -28,9 +29,7 @@ import {
   MatDialogContent,
   MatDialogTitle,
 } from '@angular/material/dialog';
-
-
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -64,11 +63,13 @@ import {
     MatDialogActions,
     MatDialogClose,
     MatDialogTitle,
+    MatProgressSpinnerModule,
 
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent]
 })

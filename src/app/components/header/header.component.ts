@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../../pages/login-page/services/login.service';
+
 
 @Component({
   selector: 'app-header',
@@ -9,7 +11,14 @@ import { Router } from '@angular/router';
 
 export class NavComponent {
 
-  constructor(private router: Router) { }
+  activeUser$ = this.loginService.activeUser$;
+
+
+  constructor(private router: Router, private loginService: LoginService) {
+    console.log(this.activeUser$);
+
+  }
+
 
   imgLogo = {
     url: '../../../assets/logo.png',
@@ -19,5 +28,7 @@ export class NavComponent {
   openMainPage() {
     this.router.navigate(['/']);
   }
+
+
 
 }
