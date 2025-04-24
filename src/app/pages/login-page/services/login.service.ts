@@ -39,7 +39,7 @@ export class LoginService {
     return typeof window !== 'undefined' && !!window.sessionStorage;
   }
 
-  private getUserFromStorage() {
+ getUserFromStorage() {
     if (this.isBrowser()) {
       const stored = sessionStorage.getItem('activeUser');
       return stored ? JSON.parse(stored) : null;

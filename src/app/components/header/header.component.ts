@@ -12,6 +12,7 @@ import { LoginService } from '../../pages/login-page/services/login.service';
 export class NavComponent {
 
   activeUser$ = this.loginService.activeUser$;
+  isUserLogin = false;
 
 
   constructor(private router: Router, private loginService: LoginService) {
@@ -27,6 +28,15 @@ export class NavComponent {
 
   openMainPage() {
     this.router.navigate(['/']);
+  }
+
+  submitAds() {
+    this.isUserLogin = this.loginService.getUserFromStorage();
+    if (!this.isUserLogin) {
+      this.router.navigate(['login']);
+    } else {
+      console.log("loading ads page");
+    }
   }
 
 
