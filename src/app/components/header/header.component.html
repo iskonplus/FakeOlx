@@ -1,23 +1,54 @@
 <div class="wrapper_header">
   <header>
     <div class="block_header">
-      <img (click)="openMainPage()" src="{{imgLogo.url}}" alt="{{imgLogo.alt}}" width="80px">
+      <img (click)="openMainPage()" src="{{ imgLogo.url }}" alt="{{ imgLogo.alt }}" width="80px" />
     </div>
     <div class="block_header">
       <nav>
         <ul>
-          <li><a href="">
+          <li *ngIf="activeUser$ | async as user">
+            <a href="">
               <mat-icon>chat_bubble_outline</mat-icon>
               Notification</a>
           </li>
-          <li><a href=""><mat-icon class="iconFavorite">favorite_border</mat-icon></a></li>
-          <li><a href="login">
+          <li *ngIf="activeUser$ | async as user">
+            <a href=""><mat-icon class="iconFavorite">favorite_border</mat-icon></a>
+          </li>
+
+          <li *ngIf="activeUser$ | async as user; else loggedOut">
+            <a href="user">
               <mat-icon>perm_identity</mat-icon>
-              Login</a></li>
+              {{ user.name }}
+            </a>
+          </li>
+
+          <ng-template #loggedOut>
+
+          <li>
+            <a href="login">
+              <mat-icon>perm_identity</mat-icon>
+              Login</a>
+          </li>
+        </ng-template>
+
           <li><a href="" class="navSubmit">Submit ads</a></li>
         </ul>
       </nav>
-
     </div>
   </header>
 </div>
+
+<!-- <div
+  class="test"
+  style="
+    background-color: blue;
+    width: 100%;
+    height: 30px;
+    color: aliceblue;
+    display: block;
+  "
+> -->
+<!-- <div *ngIf="user$ | async as user">
+    <span style="color: black; font-size: 18px">Hello, {{ user.name }}</span>
+  </div>
+</div> -->
