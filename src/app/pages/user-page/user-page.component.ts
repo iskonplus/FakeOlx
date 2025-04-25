@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../login-page/services/login.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-page',
@@ -8,9 +8,15 @@ import { Router } from '@angular/router';
   styleUrl: './user-page.component.scss'
 })
 export class UserPageComponent {
-  constructor(private loginService: LoginService, private router: Router ) {}
+  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute ) {}
 
   activeUser$ = this.loginService.activeUser$;
+  userId?: string | null;
+
+  ngOnInit() {
+    this.userId = this.route.snapshot.paramMap.get("id");
+    console.log(this.userId);
+  }
 
   logOut() {
     this.loginService.clearUser();
