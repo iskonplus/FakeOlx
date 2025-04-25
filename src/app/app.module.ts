@@ -30,6 +30,8 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CreateAdsPageComponent } from './pages/create-ads-page/create-ads-page.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 
 
@@ -44,6 +46,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     LoginComponent,
     RegistrationComponent,
     PopupComponent,
+    CreateAdsPageComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

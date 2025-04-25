@@ -16,7 +16,7 @@
           </li>
 
           <li *ngIf="activeUser$ | async as user; else loggedOut">
-            <a href="user">
+            <a [routerLink]="['/user', user.id]">
               <mat-icon>perm_identity</mat-icon>
               {{ user.name }}
             </a>
@@ -31,7 +31,7 @@
           </li>
         </ng-template>
 
-          <li><button type="submit" (click)="submitAds()" class="navSubmit">Submit ads</button></li>
+          <li><button type="submit" (click)="submitAds()" class="navSubmit">Add ads</button></li>
         </ul>
       </nav>
     </div>
