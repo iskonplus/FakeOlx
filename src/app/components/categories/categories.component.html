@@ -2,12 +2,13 @@
   <h2>Main categories</h2>
   <div class="block_categories">
 
-    <div class="card" *ngFor="let card of categoriesData">
-      <img src="{{card.imgPath}}" alt="Photo of categories" class="{{card.class}}">
+    <div class="card" *ngFor="let card of categoriesCard"
+    [ngClass]="{ 'disabled': !isCategoryAvailable(card.heading) }"
+    (click)="openCategory(card.heading)"
+    >
+      <img src="{{card.imgPath}}" alt="Photo of categories"  [ngStyle]="{'--bg-color': card.color}">
       <a href="">{{card.heading}}</a>
     </div>
-
-
 
   </div>
 </div>
