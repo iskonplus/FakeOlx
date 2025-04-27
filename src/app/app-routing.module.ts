@@ -6,6 +6,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { CreateAdsPageComponent } from './pages/create-ads-page/create-ads-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ShowCategoryPageComponent } from './pages/show-category-page/show-category-page.component';
 
 const routes: Routes = [
   // { path:'', component: FirstPageComponent, pathMatch: 'full' },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'user/:id', component: UserPageComponent},
   { path: 'user/:id/add-ads', component: CreateAdsPageComponent},
   { path: 'test', component: TestComponent },
+  { path: 'category/:cat', component: ShowCategoryPageComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

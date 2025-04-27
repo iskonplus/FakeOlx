@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { LoginComponent } from './components/login/login.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
@@ -29,9 +29,11 @@ import {
   MatDialogContent,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CreateAdsPageComponent } from './pages/create-ads-page/create-ads-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ShowCategoryPageComponent } from './pages/show-category-page/show-category-page.component';
+import { ProductsModule } from './shared/shared.module';
 
 
 
@@ -48,12 +50,14 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
     PopupComponent,
     CreateAdsPageComponent,
     PageNotFoundComponent,
+    ShowCategoryPageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
     MainPageModule,
+    ProductsModule,
     HttpClientModule,
     MatTabsModule,
 
