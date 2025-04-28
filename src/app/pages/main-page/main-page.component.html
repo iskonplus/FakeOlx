@@ -4,10 +4,10 @@
   </article>
 </div>
 <article class="container">
-  <app-search></app-search>
+  <app-search (filterTerm)="handleFilterTerm($event)"></app-search>
 </article>
 
 <article class="container ads">
   <h2>Last ads</h2>
-  <app-products></app-products>
+  <app-products [term]="term"></app-products>
 </article>

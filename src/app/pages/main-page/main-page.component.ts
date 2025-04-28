@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './main-page.component.scss'
 })
 export class MainPageComponent {
+  term = '';
+
+  handleFilterTerm(filterTerm: string) {
+    this.term = filterTerm;
+  }
+
 
 }

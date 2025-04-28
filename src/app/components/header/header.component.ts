@@ -20,8 +20,7 @@ export class NavComponent {
 
 
   constructor(private router: Router, private loginService: LoginService) {
-    this.activeUser$.subscribe(user=> console.log(user));
-
+    // this.activeUser$.subscribe(user=> console.log(user));
   }
 
 

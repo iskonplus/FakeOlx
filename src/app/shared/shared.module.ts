@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { SearchComponent } from './search/search.component';
+import { FilterProductsPipe } from '../pipes/filter-products.pipe';
 
 
 
@@ -14,7 +15,8 @@ import { SearchComponent } from './search/search.component';
   declarations: [
     ProductsComponent,
     CardComponent,
-    SearchComponent
+    SearchComponent,
+    FilterProductsPipe
 
   ],
   exports: [
@@ -27,6 +29,7 @@ import { SearchComponent } from './search/search.component';
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
+
   ]
 })
 export class ProductsModule { }
