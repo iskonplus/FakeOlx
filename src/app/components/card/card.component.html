@@ -6,7 +6,7 @@
         <mat-card-title>{{product.title}}</mat-card-title>
         <mat-icon class="favorite"
         [ngClass]="{ like: isCardLike }"
-        (click)="addToFavorite()">{{typeFavoriteIcon}}</mat-icon>
+        (click)="addToFavorite($event)">{{typeFavoriteIcon}}</mat-icon>
       </mat-card-actions>
       <p *ngIf="isMoreInformation">
        {{product.description}}
