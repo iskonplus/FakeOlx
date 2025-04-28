@@ -18,7 +18,8 @@ export class CardComponent {
 
   constructor() { }
 
-  addToFavorite() {
+  addToFavorite(event: Event) {
+    event.stopPropagation();
     this.isCardLike = !this.isCardLike;
     this.typeFavoriteIcon = this.isCardLike ? 'favorite' : 'favorite_border';
   }
