@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Card } from '../../types/card';
 import { Observable, delay, filter, map, of, tap } from 'rxjs';
 
@@ -10,16 +10,23 @@ import { Observable, delay, filter, map, of, tap } from 'rxjs';
 
 export class CardComponent {
   @Input() product!: Card;
+  @Output() showDetails: EventEmitter<number> = new EventEmitter<number>();
+
   isMoreInformation: Boolean = false;
   isCardLike: Boolean = false;
   typeFavoriteIcon = 'favorite_border';
+
+  constructor() { }
 
   addToFavorite() {
     this.isCardLike = !this.isCardLike;
     this.typeFavoriteIcon = this.isCardLike ? 'favorite' : 'favorite_border';
   }
 
-  constructor() {}
+
+  showMoreDetails(id:number) {
+    this.showDetails.emit(id);
+  }
 
 }
 

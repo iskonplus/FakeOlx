@@ -34,6 +34,7 @@ import { CreateAdsPageComponent } from './pages/create-ads-page/create-ads-page.
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ShowCategoryPageComponent } from './pages/show-category-page/show-category-page.component';
 import { ProductsModule } from './shared/shared.module';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 
 
@@ -52,6 +53,7 @@ import { ProductsModule } from './shared/shared.module';
     CreateAdsPageComponent,
     PageNotFoundComponent,
     ShowCategoryPageComponent,
+    ProductDetailsComponent,
   ],
   imports: [
     BrowserModule,
