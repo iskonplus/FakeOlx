@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Card } from '../../types/card';
+import { ProductDetailsComponent } from '../../components/product-details/product-details.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-products',
@@ -13,6 +15,9 @@ export class ProductsComponent implements OnInit {
   isMoreInformation = false;
   @Input() category?: string | null;
   @Input() term = "";
+  readonly dialog = inject(MatDialog);
+  @ViewChild('showDetails') ProductDetailsComponent!: ProductDetailsComponent;
+
 
   constructor(private productsService: ProductsService) { }
 
@@ -25,6 +30,12 @@ export class ProductsComponent implements OnInit {
             response;
         }
       );
+  }
+
+  showMoreDetails(id: number) {
+    this.dialog.open(ProductDetailsComponent, {
+      data: id,
+    });
   }
 
 
