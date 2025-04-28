@@ -1,9 +1,9 @@
 <div class="wrapper-header">
-  <button type="submit"  class="btn-return" (click)="returnToMainPage()">
+  <button type="submit" class="btn-return" (click)="returnToMainPage()">
     Return
     <mat-icon>reply</mat-icon>
   </button>
   <h2>{{category|uppercase}}</h2>
 </div>
-<app-search></app-search>
-<app-products [category]="category"></app-products>
+<app-search (filterTerm)="handleFilterTerm($event)"></app-search>
+<app-products [category]="category" [term]="term"></app-products>

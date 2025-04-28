@@ -12,6 +12,7 @@ export class ProductsComponent implements OnInit {
   products!: Card[];
   isMoreInformation = false;
   @Input() category?: string | null;
+  @Input() term = "";
 
   constructor(private productsService: ProductsService) { }
 

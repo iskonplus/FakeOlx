@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 
 
@@ -8,6 +8,7 @@ import {FormGroup, FormControl} from '@angular/forms';
   styleUrl: './search.component.scss'
 })
 export class SearchComponent implements OnInit {
+  @Output() filterTerm: EventEmitter<string> = new EventEmitter<string>();
 
   searchProductsForm = new FormGroup({
     formDataFind: new FormControl(''),
@@ -19,8 +20,8 @@ export class SearchComponent implements OnInit {
 
   submit(event: Event) {
     event.preventDefault();
-    console.log(this.searchProductsForm.value);
-    this.searchProductsForm.reset();
+    this.filterTerm.emit(this.searchProductsForm.value.formDataFind ?? "");
+    // this.searchProductsForm.reset();
   }
 
 

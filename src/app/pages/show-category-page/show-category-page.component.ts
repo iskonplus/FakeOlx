@@ -8,7 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './show-category-page.component.scss'
 })
 export class ShowCategoryPageComponent {
-  category?: string | null
+  category?: string | null;
+  term = '';
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
@@ -16,9 +17,12 @@ export class ShowCategoryPageComponent {
     this.category = this.route.snapshot.paramMap.get("cat")?.split('-').join(' ');
   }
 
-  returnToMainPage() {
-    this.router.navigate(['/'])
+  handleFilterTerm(filterTerm: string) {
+    this.term = filterTerm;
+  }
 
+  returnToMainPage() {
+    this.router.navigate(['/']);
   }
 
 }
