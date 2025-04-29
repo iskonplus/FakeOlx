@@ -15,13 +15,11 @@ export class UserPageComponent {
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get("id");
-    console.log(this.userId);
   }
 
   logOut() {
     this.loginService.clearUser();
     this.router.navigate(['/']);
-
   }
 
 }
