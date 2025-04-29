@@ -3,12 +3,15 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../../../types/user';
 import { ActiveUser } from '../../../types/active-user';
+import { UserState } from '../../../types/user-state.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private userSubject = new BehaviorSubject<ActiveUser | null>(this.getUserFromStorage());
+  private initialUserState: UserState = { isLoggedIn: false };
+  private userSubject = new BehaviorSubject<UserState>(this.initialUserState);
   activeUser$ = this.userSubject.asObservable();
 
   baseUrl = "https://6802395481c7e9fbcc44db3c.mockapi.io/fakeOlx/";
@@ -32,28 +35,12 @@ export class LoginService {
 
   }
 
-
-  // ----------sessionStorage-----------
-
-  private isBrowser(): boolean {
-    return typeof window !== 'undefined' && !!window.sessionStorage;
-  }
-
- getUserFromStorage() {
-    if (this.isBrowser()) {
-      const stored = sessionStorage.getItem('activeUser');
-      return stored ? JSON.parse(stored) : null;
-    }
-}
-
 setUser(user: ActiveUser) {
-  sessionStorage.setItem('activeUser', JSON.stringify(user));
-  this.userSubject.next(user);
+  this.userSubject.next({ isLoggedIn: true, user });
 }
 
 clearUser() {
-  sessionStorage.removeItem('activeUser');
-  this.userSubject.next(null);
+  this.userSubject.next(this.initialUserState);
 }
 
 
