@@ -15,21 +15,24 @@
             <a href=""><mat-icon class="iconFavorite">favorite_border</mat-icon></a>
           </li>
 
-          <li *ngIf="activeUser$ | async as user; else loggedOut">
-            <a [routerLink]="['/user', user.id]">
-              <mat-icon>perm_identity</mat-icon>
-              {{ user.name }}
-            </a>
-          </li>
+          <ng-container *ngIf="activeUser$ | async as userState;">
+            <ng-container *ngIf="userState?.isLoggedIn; else loggedOut">
+              <li *ngIf="userState.isLoggedIn">
+                <a [routerLink]="['/user', userState.user.id]">
+                  <mat-icon>perm_identity</mat-icon>
+                  {{ userState.user.name }}
+                </a>
+              </li>
+            </ng-container>
+          </ng-container>
 
           <ng-template #loggedOut>
-
-          <li>
-            <a href="login">
-              <mat-icon>perm_identity</mat-icon>
-              Login</a>
-          </li>
-        </ng-template>
+            <li>
+              <a href="login">
+                <mat-icon>perm_identity</mat-icon>
+                Login</a>
+            </li>
+          </ng-template>
 
           <li><button type="submit" (click)="submitAds()" class="navSubmit">Add ads</button></li>
         </ul>
@@ -37,5 +40,3 @@
     </div>
   </header>
 </div>
-
-
