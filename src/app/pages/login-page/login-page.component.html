@@ -3,24 +3,17 @@
 </div>
 
 @if(isSpinnerActive){
-  <mat-spinner class="spinner"></mat-spinner>
+<mat-spinner class="spinner"></mat-spinner>
 }
-<mat-tab-group class="log" [(selectedIndex)]="selectedTabIndex"  animationDuration="0ms">
+<mat-tab-group class="log" [(selectedIndex)]="selectedTabIndex" animationDuration="0ms">
 
-  <mat-tab  label="Log in">
-    <app-login
-    (showSpinner)="handleSpinner()"
-    (loginFailed)="handleLoginError($event)"></app-login>
+  <mat-tab label="Log in">
+    <app-login (showSpinner)="handleSpinner()" (loginFailed)="handleLoginError($event)"></app-login>
   </mat-tab>
 
-  <mat-tab  label="Registration">
-    <app-registration
-    (showSpinner)="handleSpinner()"
-    (registrationFailed)="handleLoginError($event)"
-    (registrationSuccess)="handleRegistrationSuccess()"
-    ></app-registration>
+  <mat-tab label="Registration">
+    <app-registration (showSpinner)="handleSpinner()" (registrationFailed)="handleLoginError($event)"
+      (registrationSuccess)="handleRegistrationSuccess()"></app-registration>
   </mat-tab>
 
 </mat-tab-group>
-
-

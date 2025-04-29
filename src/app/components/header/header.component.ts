@@ -1,10 +1,10 @@
-import { UserState } from './../../types/user-state.model';
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../pages/login-page/services/login.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../popup/popup.component';
-import { ActiveUser } from '../../types/active-user';
+import { Subscription } from 'rxjs';
+import { UserState } from '../../types/user-state.model';
 
 
 @Component({
@@ -13,11 +13,12 @@ import { ActiveUser } from '../../types/active-user';
   styleUrl: './header.component.scss'
 })
 
-export class NavComponent {
+export class NavComponent implements OnDestroy{
 
   activeUser$ = this.loginService.activeUser$;
-  isUserLogin?: boolean;
   readonly dialog = inject(MatDialog);
+  private userSubscription!: Subscription;
+  userState?: UserState;
 
   @ViewChild('popUp') popupComponent!: PopupComponent;
 
@@ -37,26 +38,24 @@ export class NavComponent {
   }
 
   submitAds() {
-    this.activeUser$.subscribe(userState => {
-      console.log(userState);
-      // this.isUserLogin = userState.isLoggedIn
+    this.userSubscription = this.activeUser$.subscribe(state =>  this.userState = state);
 
-      if (!userState.isLoggedIn) {
-        this.dialog.open(PopupComponent, {
-          data: "User is not logged in!",
-        });
-        this.router.navigate(['login']);
-      } else {
-        this.activeUser$.subscribe(user => {
-          return this.router.navigate([`user/${userState.user.id}/add-ads`]);
-        })
-      }
-
-    });
-
+    if (this.userState?.isLoggedIn) {
+      this.router.navigate([`user/${this.userState.user}/add-ads`]);
+    } else {
+      this.dialog.open(PopupComponent, {
+        data: "User is not logged in!",
+      });
+      this.router.navigate(['login']);
+    }
 
   }
 
+  ngOnDestroy(): void {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
 
+  }
 
 }

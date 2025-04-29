@@ -30,7 +30,6 @@ export class LoginService {
         'Content-Type': 'application/json'
       }),
     };
-
     return this.http.post<User>(this.baseUrl + '/user', userData, httpOptions);
 
   }

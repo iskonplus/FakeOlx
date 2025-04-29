@@ -41,9 +41,7 @@ export class LoginComponent {
     this.loginService.userLogin(this.userData)
       .subscribe({
         next: user => {
-          console.log(user[0]);
           this.loginService.setUser(user[0]);
-
           this.router.navigate(['/']);
         },
         error: (err) => {this.showSpinner.emit(), this.loginFailed.emit('User ' + err.statusText + ', try again.')},
