@@ -17,17 +17,22 @@ export class ProductsComponent implements OnInit {
   @Input() term = "";
   readonly dialog = inject(MatDialog);
   @ViewChild('showDetails') ProductDetailsComponent!: ProductDetailsComponent;
+  isSpinnerActive = false;
 
 
   constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
+    this.isSpinnerActive = true;
+
     this.productsService.getProducts()
       .subscribe(
         (response) => {
+
           this.products = this.category ?
             response.filter(el => el.category.toLowerCase() === this.category) :
             response;
+          this.isSpinnerActive = false;
         }
       );
   }

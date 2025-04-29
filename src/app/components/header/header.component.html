@@ -5,17 +5,16 @@
     </div>
     <div class="block_header">
       <nav>
-        <ul>
-          <li *ngIf="activeUser$ | async as user">
-            <a href="">
+        <ul *ngIf="activeUser$ | async as userState">
+          <li *ngIf="userState.isLoggedIn">
+            <a [routerLink]="['/user', userState.user.id]">
               <mat-icon>chat_bubble_outline</mat-icon>
               Notification</a>
           </li>
-          <li *ngIf="activeUser$ | async as user">
-            <a href=""><mat-icon class="iconFavorite">favorite_border</mat-icon></a>
+          <li *ngIf="userState.isLoggedIn">
+            <a [routerLink]="['/user', userState.user.id]"><mat-icon class="iconFavorite">favorite_border</mat-icon></a>
           </li>
 
-          <ng-container *ngIf="activeUser$ | async as userState;">
             <ng-container *ngIf="userState?.isLoggedIn; else loggedOut">
               <li *ngIf="userState.isLoggedIn">
                 <a [routerLink]="['/user', userState.user.id]">
@@ -24,7 +23,6 @@
                 </a>
               </li>
             </ng-container>
-          </ng-container>
 
           <ng-template #loggedOut>
             <li>
