@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { ProductsModule } from '../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { ProductsModule } from '../../shared/shared.module';
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
-    ProductsModule
+    SharedModule
+
   ]
 })
 export class MainPageModule { }

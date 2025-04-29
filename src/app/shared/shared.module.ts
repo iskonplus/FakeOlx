@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { SearchComponent } from './search/search.component';
 import { FilterProductsPipe } from '../pipes/filter-products.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 
@@ -16,7 +18,8 @@ import { FilterProductsPipe } from '../pipes/filter-products.pipe';
     ProductsComponent,
     CardComponent,
     SearchComponent,
-    FilterProductsPipe
+    FilterProductsPipe,
+
 
   ],
   exports: [
@@ -29,7 +32,9 @@ import { FilterProductsPipe } from '../pipes/filter-products.pipe';
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
 
   ]
 })
-export class ProductsModule { }
+export class SharedModule { }

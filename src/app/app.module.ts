@@ -33,8 +33,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CreateAdsPageComponent } from './pages/create-ads-page/create-ads-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ShowCategoryPageComponent } from './pages/show-category-page/show-category-page.component';
-import { ProductsModule } from './shared/shared.module';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -54,16 +54,15 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     PageNotFoundComponent,
     ShowCategoryPageComponent,
     ProductDetailsComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
     MainPageModule,
-    ProductsModule,
     HttpClientModule,
     MatTabsModule,
-
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -75,6 +74,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     MatDialogClose,
     MatDialogTitle,
     MatProgressSpinnerModule,
+    SharedModule,
 
   ],
   providers: [
