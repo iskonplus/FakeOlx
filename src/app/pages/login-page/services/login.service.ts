@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { User } from '../../../types/user';
 import { ActiveUser } from '../../../types/active-user';
 import { UserState } from '../../../types/user-state.model';
@@ -19,7 +19,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
 
-  userLogin(userData: User): Observable<ActiveUser[]>  {
+  userLogin(userData: User): Observable<ActiveUser[]> {
     return this.http.get<ActiveUser[]>(`${this.baseUrl}/user?email=${userData.email}&password=${userData.password}`);
   }
 
@@ -31,16 +31,15 @@ export class LoginService {
       }),
     };
     return this.http.post<User>(this.baseUrl + '/user', userData, httpOptions);
-
   }
 
-setUser(user: ActiveUser) {
-  this.userSubject.next({ isLoggedIn: true, user });
-}
+  setUser(user: ActiveUser) {
+    this.userSubject.next({ isLoggedIn: true, user });
+  }
 
-clearUser() {
-  this.userSubject.next(this.initialUserState);
-}
+  clearUser() {
+    this.userSubject.next(this.initialUserState);
+  }
 
 
 }

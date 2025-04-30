@@ -1,0 +1,27 @@
+.httpError {
+  width: 100%;
+  background-color: #a20b0b;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 7;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 100;
+
+  button {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background-color: #a20b0b;
+    border:none;
+    font-size: 20px;
+    color:#ffffff;
+    font-weight: 100;
+
+  }
+
+}
