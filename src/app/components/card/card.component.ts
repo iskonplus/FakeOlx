@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Card } from '../../types/card';
-import { Observable, delay, filter, map, of, tap } from 'rxjs';
+import { Product } from '../../types/product';
 
 @Component({
   selector: 'app-card',
@@ -9,7 +8,7 @@ import { Observable, delay, filter, map, of, tap } from 'rxjs';
 })
 
 export class CardComponent {
-  @Input() product!: Card;
+  @Input() product!: Product;
   @Output() showDetails: EventEmitter<number> = new EventEmitter<number>();
 
   isMoreInformation: Boolean = false;
