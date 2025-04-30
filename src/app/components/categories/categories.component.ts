@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CategoriesService } from '../../services/categories.service';
 import { ProductsService } from '../../services/products.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-categories',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router';
   styleUrl: './categories.component.scss'
 })
 
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
+  productsSubscription!: Subscription;
 
 
   constructor(private categoriesService: CategoriesService,
@@ -21,7 +23,7 @@ export class CategoriesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.productsService.fetchProducts().subscribe(response => {
+    this.productsSubscription = this.productsService.fetchProducts().subscribe(response => {
       response.forEach(card => {
         this.availableCategories.push(card.category.toLowerCase())
       })
@@ -50,6 +52,10 @@ export class CategoriesComponent implements OnInit {
   openCategory(category: string) {
     console.log(category);
     this.router.navigate([`category/${category.split(' ').join('-').toLowerCase()}`]);
+  }
+
+  ngOnDestroy(): void {
+    this.productsSubscription.unsubscribe();
   }
 
 
