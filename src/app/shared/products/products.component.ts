@@ -1,8 +1,9 @@
 import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
-import { Card } from '../../types/card';
 import { ProductDetailsComponent } from '../../components/product-details/product-details.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Product } from '../../types/product';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -11,7 +12,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ProductsComponent implements OnInit {
 
-  products!: Card[];
+  products!: Product[];
+  productSubscription!: Subscription;
   isMoreInformation = false;
   @Input() category?: string | null;
   @Input() term = "";
@@ -25,13 +27,12 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.isSpinnerActive = true;
 
-    this.productsService.getProducts()
+    this.productSubscription = this.productsService.fetchProducts()
       .subscribe(
-        (response) => {
-
-          this.products = this.category ?
-            response.filter(el => el.category.toLowerCase() === this.category) :
-            response;
+        response => {
+          this.products = this.category
+            ? response.filter(product => product.category.toLowerCase() === this.category)
+            : response;
           this.isSpinnerActive = false;
         }
       );
@@ -41,6 +42,11 @@ export class ProductsComponent implements OnInit {
     this.dialog.open(ProductDetailsComponent, {
       data: id,
     });
+  }
+
+  ngOnDestroy(): void {
+    this.productSubscription.unsubscribe();
+
   }
 
 

@@ -21,7 +21,7 @@ export class CategoriesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.productsService.getProducts().subscribe(response => {
+    this.productsService.fetchProducts().subscribe(response => {
       response.forEach(card => {
         this.availableCategories.push(card.category.toLowerCase())
       })
