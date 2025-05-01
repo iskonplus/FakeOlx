@@ -38,9 +38,9 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  showMoreDetails(id: number) {
+  showMoreDetails(product: Product) {
     this.dialog.open(ProductDetailsComponent, {
-      data: id,
+      data: product,
     });
   }
 

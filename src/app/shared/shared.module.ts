@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsComponent } from './products/products.component';
-import { CardComponent } from '../components/card/card.component';
+import { CardComponent } from './card/card.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +22,7 @@ import { HttpErrorComponent } from './httpError/http-error.component';
     SearchComponent,
     FilterProductsPipe,
     HttpErrorComponent,
+    CardComponent,
 
 
   ],
@@ -29,6 +30,7 @@ import { HttpErrorComponent } from './httpError/http-error.component';
     ProductsComponent,
     SearchComponent,
     HttpErrorComponent,
+    CardComponent,
   ],
   imports: [
     CommonModule,

@@ -1,3 +1,5 @@
+import { LoginService } from './../../pages/login-page/services/login.service';
+import { Product } from './../../types/product';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -7,5 +9,15 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrl: './product-details.component.scss'
 })
 export class ProductDetailsComponent {
- constructor(@Inject(MAT_DIALOG_DATA) public data: string) {}
+  isShowDetails = true;
+  isAddToCart = false;
+  isUserLogged = false;
+  constructor(@Inject(MAT_DIALOG_DATA) public product: Product, private loginService: LoginService) { }
+
+  ngOnInit(): void {
+    this.loginService.activeUser$.forEach(state => this.isUserLogged = state.isLoggedIn)
+    console.log(this.isUserLogged);
+
+  }
+
 }
