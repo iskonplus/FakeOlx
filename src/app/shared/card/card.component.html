@@ -1,5 +1,5 @@
 <div class="wrapper_card">
-  <mat-card  class="example-card" appearance="outlined" (click)="showMoreDetails(product.id)">
+  <mat-card  class="example-card" appearance="outlined" (click)="showMoreDetails()">
     <img mat-card-image [src]="product.image" alt="Photo of a Shiba Inu">
     <mat-card-content>
       <mat-card-actions>
@@ -8,12 +8,15 @@
         [ngClass]="{ like: isCardLike }"
         (click)="addToFavorite($event)">{{typeFavoriteIcon}}</mat-icon>
       </mat-card-actions>
-      <p *ngIf="isMoreInformation">
+      <p *ngIf="isMoreInformation" class="details">
        {{product.description}}
       </p>
 
       <mat-card-actions class="information">
-        <p class="price">{{product.price| currency}}</p>
+        <div>
+          <p class="price">{{product.price| currency}}</p>
+          <p class="rating" *ngIf="isMoreInformation"> <mat-icon>star_border</mat-icon>{{product.rating.rate}}</p>
+        </div>
         <a href="" class="category">{{product.category}}</a>
       </mat-card-actions>
 
@@ -21,4 +24,3 @@
   </mat-card>
 </div>
 
-<!-- <p>This is card</p> -->

@@ -9,9 +9,9 @@ import { Product } from '../../types/product';
 
 export class CardComponent {
   @Input() product!: Product;
-  @Output() showDetails: EventEmitter<number> = new EventEmitter<number>();
+  @Input() isMoreInformation = false;
+  @Output() showDetails: EventEmitter<Product> = new EventEmitter<Product>();
 
-  isMoreInformation: Boolean = false;
   isCardLike: Boolean = false;
   typeFavoriteIcon = 'favorite_border';
 
@@ -24,8 +24,8 @@ export class CardComponent {
   }
 
 
-  showMoreDetails(id:number) {
-    this.showDetails.emit(id);
+  showMoreDetails() {
+    this.showDetails.emit(this.product);
   }
 
 }

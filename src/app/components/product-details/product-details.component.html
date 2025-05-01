@@ -1,5 +1,17 @@
 <h2 mat-dialog-title>DETAILS-</h2>
-<mat-dialog-content>Here will be details from card with id:{{data}}</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
+<mat-dialog-content>
+  <div class="wrapper_card">
+
+    <app-card [product]="product" [isMoreInformation]="isShowDetails">
+    </app-card>
+
+  </div>
+</mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button
+    *ngIf="isUserLogged"
+    (click)="isAddToCart = !isAddToCart"
+    >{{!isAddToCart? 'Add to cart' : 'Remove Cart'}}</button>
+    <button mat-dialog-close>Close</button>
 </mat-dialog-actions>

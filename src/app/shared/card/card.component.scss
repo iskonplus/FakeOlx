@@ -12,7 +12,9 @@
       justify-content: space-between;
       overflow: hidden;
       background-color: #ffffff;
+      padding: 10px;
       cursor: pointer;
+
 
       img {
         width: 100%;
@@ -37,11 +39,39 @@
 
       }
 
+      .details{
+        margin-top: 0px;
+      }
+
       .information{
         display: flex;
         flex-direction: column;
         align-items: start;
         justify-content: end;
+
+        div{
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .price {
+            font-weight: 600;
+            color: #002F34;
+          }
+
+          .rating{
+            display: flex;
+            align-items: center;
+            mat-icon{
+              display: block;
+              margin-right: 10px;
+              font-size: 15px;
+              width: 15px;
+              height: 15px;
+            }
+          }
+        }
 
         a{
           text-decoration: none;
@@ -66,16 +96,17 @@
         color: #FF5636;
       }
 
-      .price {
-        font-weight: 600;
-        color: #002F34;
-      }
+
     }
   }
 
 
   mat-card-actions{
     align-items: start;
+  }
+
+  ::ng-deep.mat-mdc-card-outlined {
+    border-color: #002f34af!important;
   }
 
 
