@@ -39,10 +39,12 @@ export class ProductsComponent implements OnInit {
   }
 
   showMoreDetails(product: Product) {
-    this.dialog.open(ProductDetailsComponent, {
+    const dialogRef = this.dialog.open(ProductDetailsComponent, {
       data: product,
-    });
+    })
   }
+
+
 
   ngOnDestroy(): void {
     this.productSubscription.unsubscribe();

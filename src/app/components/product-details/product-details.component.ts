@@ -9,15 +9,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrl: './product-details.component.scss'
 })
 export class ProductDetailsComponent {
-  isShowDetails = true;
   isAddToCart = false;
   isUserLogged = false;
   constructor(@Inject(MAT_DIALOG_DATA) public product: Product, private loginService: LoginService) { }
 
   ngOnInit(): void {
-    this.loginService.activeUser$.forEach(state => this.isUserLogged = state.isLoggedIn)
-    console.log(this.isUserLogged);
-
+    this.loginService.activeUser$.forEach(state => this.isUserLogged = state.isLoggedIn);
   }
 
 }
