@@ -1,0 +1,24 @@
+:host{
+  display: block;
+  max-width: 1270px;
+  margin: auto;
+  text-align: center;
+  color: #002F34;
+
+
+    .wrapper-cards{
+    width: 100%;
+    padding-bottom: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: space-around;
+
+    app-card{
+      width: 25%;
+      min-width: 280px;
+    }
+  }
+  }
+
+

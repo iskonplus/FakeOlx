@@ -35,6 +35,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { ShowCategoryPageComponent } from './pages/show-category-page/show-category-page.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { SharedModule } from './shared/shared.module';
+import { UserFavoriteComponent } from './components/user-favorite/user-favorite.component';
 
 
 
@@ -57,6 +58,7 @@ import { SharedModule } from './shared/shared.module';
     PageNotFoundComponent,
     ShowCategoryPageComponent,
     ProductDetailsComponent,
+    UserFavoriteComponent,
 
   ],
   imports: [

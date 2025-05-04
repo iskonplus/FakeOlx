@@ -1,0 +1,5 @@
+<h2>{{favoritesCardId.length>1? 'My favorites':'My favorite'}}</h2>
+<div class="wrapper-cards">
+  <app-card *ngFor="let product of products" [product]="product" (showDetails)="showMoreDetails($event)">
+  </app-card>
+</div>
