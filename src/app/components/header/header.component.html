@@ -12,7 +12,7 @@
               Notification</a>
           </li>
           <li *ngIf="userState.isLoggedIn">
-            <a [routerLink]="['/user', userState.user.id]"><mat-icon class="iconFavorite">favorite_border</mat-icon></a>
+            <a [routerLink]="['/user', userState.user.id, 'favorites']"><mat-icon class="iconFavorite">favorite_border</mat-icon></a>
           </li>
 
             <ng-container *ngIf="userState?.isLoggedIn; else loggedOut">
