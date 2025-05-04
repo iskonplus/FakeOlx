@@ -1,15 +1,14 @@
 <div class="wrapper_card">
-  <mat-card  class="example-card" appearance="outlined" (click)="showMoreDetails()">
+  <mat-card class="example-card" appearance="outlined" (click)="showMoreDetails()">
     <img mat-card-image [src]="product.image" alt="Photo of a Shiba Inu">
     <mat-card-content>
       <mat-card-actions>
         <mat-card-title>{{product.title}}</mat-card-title>
-        <mat-icon class="favorite"
-        [ngClass]="{ like: isCardLike }"
-        (click)="addToFavorite($event)">{{typeFavoriteIcon}}</mat-icon>
+        <mat-icon class="favorite" *ngIf="userId" [ngClass]="{ like: isCardLike }"
+          (click)="addToFavorite($event)">{{typeFavoriteIcon}}</mat-icon>
       </mat-card-actions>
       <p *ngIf="isMoreInformation" class="details">
-       {{product.description}}
+        {{product.description}}
       </p>
 
       <mat-card-actions class="information">
@@ -23,4 +22,3 @@
     </mat-card-content>
   </mat-card>
 </div>
-
