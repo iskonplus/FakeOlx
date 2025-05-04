@@ -5,43 +5,50 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class CardService {
-  private readonly favoriteProd = 'favoriteProducts';
-  private favoritesSubject = new BehaviorSubject<number[]>(this.getFavoritesFromStorage());
+  private readonly FAVORITE_KEY = 'favoriteProducts';
+  private currentUserId: string = 'guest';
+
+  private favoritesSubject = new BehaviorSubject<number[]>([]);
   favorites$ = this.favoritesSubject.asObservable();
 
-  private getFavoritesFromStorage(): number[] {
-    const data = localStorage.getItem(this.favoriteProd);
-    return data ? JSON.parse(data) : [];
+  constructor() {}
+
+  private getAllFavorites(): Record<string, number[]> {
+    const data = localStorage.getItem(this.FAVORITE_KEY);
+    return data ? JSON.parse(data) : {};
   }
 
-  private updateFavoritesStorage(favorites: number[]): void {
-    localStorage.setItem(this.favoriteProd, JSON.stringify(favorites));
+  private saveAllFavorites(data: Record<string, number[]>) {
+    localStorage.setItem(this.FAVORITE_KEY, JSON.stringify(data));
+  }
+
+  private getFavoritesFromStorage(): number[] {
+    const all = this.getAllFavorites();
+    return all[this.currentUserId] || [];
+  }
+
+  private updateFavoritesStorage(favorites: number[]) {
+    const all = this.getAllFavorites();
+    all[this.currentUserId] = favorites;
+    this.saveAllFavorites(all);
     this.favoritesSubject.next(favorites);
   }
 
-  getFavorites(): number[] {
-    return this.favoritesSubject.value;
+  setCurrentUser(userId: string) {
+    this.currentUserId = userId;
+    this.favoritesSubject.next(this.getFavoritesFromStorage());
   }
 
-  isFavorite(productId: number): boolean {
-    return this.getFavorites().includes(productId);
-  }
+  toggleFavorite(productId: number) {
+    const current = this.getFavoritesFromStorage();
+    const updated = current.includes(productId)
+      ? current.filter(id => id !== productId)
+      : [...current, productId];
 
-  addFavorite(productId: number): void {
-    const favorites = this.getFavorites();
-    if (!favorites.includes(productId)) {
-      this.updateFavoritesStorage([...favorites, productId]);
-    }
-  }
-
-  removeFavorite(productId: number): void {
-    const updated = this.getFavorites().filter(id => id !== productId);
     this.updateFavoritesStorage(updated);
   }
 
-  toggleFavorite(productId: number): void {
-    this.isFavorite(productId)
-      ? this.removeFavorite(productId)
-      : this.addFavorite(productId);
+  isFavorite(productId: number): boolean {
+    return this.favoritesSubject.value.includes(productId);
   }
 }
