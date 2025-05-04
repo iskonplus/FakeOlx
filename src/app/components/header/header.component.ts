@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../popup/popup.component';
 import { Subscription } from 'rxjs';
 import { UserState } from '../../types/user-state.model';
+import { CardService } from '../../shared/card/card.service';
 
 
 @Component({
@@ -18,15 +19,20 @@ export class NavComponent implements OnInit, OnDestroy {
   activeUser$ = this.loginService.activeUser$;
   readonly dialog = inject(MatDialog);
   private userSubscription!: Subscription;
+  favoritesSubscription!: Subscription;
   userState?: UserState;
+  totalFavorites = 0
+
+
 
   @ViewChild('popUp') popupComponent!: PopupComponent;
 
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService, private cardService: CardService) { }
 
   ngOnInit(): void {
- this.userSubscription = this.activeUser$.subscribe(state => this.userState = state);
+    this.userSubscription = this.activeUser$.subscribe(state => this.userState = state);
+    this.favoritesSubscription = this.cardService.favorites$.subscribe(favorites=> this.totalFavorites = favorites.length)
 
   }
 
@@ -52,6 +58,7 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.favoritesSubscription.unsubscribe();
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }

@@ -54,7 +54,8 @@
             }
           }
 
-          li:hover a {
+          li:hover a,
+          li:hover span {
             color: #b6d0d3;
             transition: .3s;
           }
@@ -79,5 +80,17 @@
         }
       }
     }
+  }
+}
+
+.favorites{
+  position: relative;
+  span{
+    color: #ffffff;
+    position: absolute;
+    left: 105%;
+    bottom:75%;
+    font-weight: 400;
+    font-size: 12px;
   }
 }

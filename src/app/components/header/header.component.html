@@ -11,8 +11,9 @@
               <mat-icon>chat_bubble_outline</mat-icon>
               Notification</a>
           </li>
-          <li *ngIf="userState.isLoggedIn">
+          <li *ngIf="userState.isLoggedIn" class="favorites">
             <a [routerLink]="['/user', userState.user.id, 'favorites']"><mat-icon class="iconFavorite">favorite_border</mat-icon></a>
+            <span *ngIf="totalFavorites>0">{{totalFavorites}}</span>
           </li>
 
             <ng-container *ngIf="userState?.isLoggedIn; else loggedOut">
