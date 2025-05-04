@@ -24,10 +24,8 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-
   this.productSubscription = this.productsService.fetchProducts().subscribe(response => {
     this.products = response;
-
 
     this.favoritesSubscription = this.cardService.favorites$.subscribe(favId => {
       this.favoritesCardId = favId;
