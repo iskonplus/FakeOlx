@@ -24,7 +24,6 @@ export class LoginPageComponent  {
 
 
   handleRegistrationSuccess() {
-    console.log('success');
     this.selectedTabIndex = 0;
     this.cdr.detectChanges();
   }

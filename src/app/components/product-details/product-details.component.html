@@ -11,7 +11,7 @@
   <mat-dialog-actions>
     <button
     *ngIf="isUserLogged"
-    (click)="isAddToCart = !isAddToCart"
+    (click)="toggleCartItem(product.id)"
     >{{!isAddToCart? 'Add to cart' : 'Remove Cart'}}</button>
     <button mat-dialog-close>Close</button>
 </mat-dialog-actions>

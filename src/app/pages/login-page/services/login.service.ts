@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 import { User } from '../../../types/user';
 import { ActiveUser } from '../../../types/active-user';
 import { UserState } from '../../../types/user-state.model';
@@ -20,7 +20,7 @@ export class LoginService {
 
 
   userLogin(userData: User): Observable<ActiveUser[]> {
-    return this.http.get<ActiveUser[]>(`${this.baseUrl}/user?email=${userData.email}&password=${userData.password}`);
+    return this.http.get<ActiveUser[]>(`${this.baseUrl}/user?email=${userData.email}&password=${userData.password}`)
   }
 
 
