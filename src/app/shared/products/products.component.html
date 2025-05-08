@@ -1,13 +1,11 @@
 <div class="wrapper_products">
 
   @if (isSpinnerActive) {
-    <mat-progress-bar mode="buffer" class="spinner"></mat-progress-bar>
+  <mat-progress-bar mode="buffer" class="spinner"></mat-progress-bar>
   }
 
-    <app-card
-      *ngFor="let product of products | filterProducts: term"
-      [product]="product"
-      (showDetails)="showMoreDetails($event)">
-    </app-card>
+  <app-card *ngFor="let product of products | filterProducts: term" [product]="product"
+    (showDetails)="showMoreDetails($event)">
+  </app-card>
 
 </div>

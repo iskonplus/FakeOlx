@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { UserCart } from '../../types/user-cart';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,9 @@ export class CardService {
   private favoritesSubject = new BehaviorSubject<number[]>([]);
   favorites$ = this.favoritesSubject.asObservable();
 
-  constructor() {}
+  constructor(private http: HttpClient) { }
+
+  // ----------favorites-----------------
 
   private getAllFavorites(): Record<string, number[]> {
     const data = localStorage.getItem(this.FAVORITE_KEY);
@@ -51,4 +55,23 @@ export class CardService {
   isFavorite(productId: number): boolean {
     return this.favoritesSubject.value.includes(productId);
   }
+
+  // ----------cart-----------------
+
+
+  baseUrl = 'https://6802395481c7e9fbcc44db3c.mockapi.io/fakeOlx/user-cart';
+  private userCartSubject = new BehaviorSubject<UserCart | null>(null);
+  userCart$ = this.userCartSubject.asObservable();
+
+
+  getUserCart(userId: string):Observable <UserCart> {
+    return this.http.get<UserCart>(`${this.baseUrl}/${userId}`);
+  }
+
+  setUserCart(userCart: UserCart) {
+    this.userCartSubject.next(userCart);
+  }
+
+
+
 }

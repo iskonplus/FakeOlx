@@ -36,6 +36,7 @@ import { ShowCategoryPageComponent } from './pages/show-category-page/show-categ
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { SharedModule } from './shared/shared.module';
 import { UserFavoriteComponent } from './components/user-favorite/user-favorite.component';
+import { UserCartComponent } from './components/user-cart/user-cart.component';
 
 
 
@@ -59,6 +60,7 @@ import { UserFavoriteComponent } from './components/user-favorite/user-favorite.
     ShowCategoryPageComponent,
     ProductDetailsComponent,
     UserFavoriteComponent,
+    UserCartComponent,
 
   ],
   imports: [

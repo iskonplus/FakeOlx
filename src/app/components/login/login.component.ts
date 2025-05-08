@@ -1,8 +1,11 @@
+import { Subscription } from 'rxjs';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../pages/login-page/services/login.service';
 import { User } from '../../types/user';
 import { Router } from '@angular/router';
+import { CardService } from '../../shared/card/card.service';
+import { ActiveUser } from '../../types/active-user';
 
 
 @Component({
@@ -17,12 +20,14 @@ export class LoginComponent {
     password: ''
   };
 
+  loginSubscription?: Subscription;
+  userCartSubscription?: Subscription;
 
   @Output() loginFailed = new EventEmitter<string>();
   @Output() showSpinner = new EventEmitter<void>();
 
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router, private cardService: CardService) { }
 
 
   loginForm = new FormGroup({
@@ -38,14 +43,13 @@ export class LoginComponent {
     this.userData.email = this.loginForm.get('email')?.value ?? '';
     this.userData.password = this.loginForm.get('password')?.value ?? '';
 
-    this.loginService.userLogin(this.userData)
+    this.loginSubscription = this.loginService.userLogin(this.userData)
       .subscribe({
         next: user => {
-          this.loginService.setUser(user[0]);
-          this.router.navigate(['/']);
+          this.handleLoginSuccess(user[0]);
         },
-        error: (err) => {this.showSpinner.emit(), this.loginFailed.emit('User ' + err.statusText + ', try again.')},
-        complete: () => {this.showSpinner.emit(), this.loginForm.reset()}
+        error: (err) => { this.showSpinner.emit(), this.loginFailed.emit('User ' + err.statusText + ', try again.') },
+        complete: () => { this.showSpinner.emit(), this.loginForm.reset() }
       })
 
 
@@ -53,6 +57,20 @@ export class LoginComponent {
     Object.keys(this.loginForm.controls).forEach(controlName => {
       this.loginForm.get(controlName)?.setErrors(null);
     });
+  }
+
+
+  handleLoginSuccess(user: ActiveUser) {
+    this.loginService.setUser(user);
+    this.userCartSubscription = this.cardService.getUserCart(user.id).subscribe(cardInCart => {
+      this.cardService.setUserCart(cardInCart);
+      this.router.navigate(['/']);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.loginSubscription?.unsubscribe();
+    this.userCartSubscription?.unsubscribe();
   }
 
 

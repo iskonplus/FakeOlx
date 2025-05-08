@@ -1,9 +1,13 @@
-import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { LoginService } from './../../pages/login-page/services/login.service';
+import { CardService } from './../card/card.service';
+import { Component, inject, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { ProductDetailsComponent } from '../../components/product-details/product-details.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Product } from '../../types/product';
 import { Subscription } from 'rxjs';
+import { ActiveUser } from '../../types/active-user';
+import { UserCart } from '../../types/user-cart';
 
 @Component({
   selector: 'app-products',
@@ -12,30 +16,70 @@ import { Subscription } from 'rxjs';
 })
 export class ProductsComponent implements OnInit {
 
-  products!: Product[];
   productSubscription!: Subscription;
+  products!: Product[];
+  cartSubscription!: Subscription;
   isMoreInformation = false;
-  @Input() category?: string | null;
-  @Input() term = "";
+  isSpinnerActive = false;
+  activeUser!: ActiveUser;
+
   readonly dialog = inject(MatDialog);
   @ViewChild('showDetails') ProductDetailsComponent!: ProductDetailsComponent;
-  isSpinnerActive = false;
 
+  @Input() category?: string | null;
+  @Input() term = "";
+  @Input() favorites!: number[];
+  @Input() userCart: UserCart | null = null;
 
-  constructor(private productsService: ProductsService) { }
+  constructor(private productsService: ProductsService, private cardService: CardService, private loginService: LoginService) { }
 
   ngOnInit() {
     this.isSpinnerActive = true;
 
     this.productSubscription = this.productsService.fetchProducts()
-      .subscribe(
-        response => {
-          this.products = this.category
-            ? response.filter(product => product.category.toLowerCase() === this.category)
-            : response;
-          this.isSpinnerActive = false;
-        }
+      .subscribe(response => {
+        this.products = response;
+        this.applyFilters();
+        this.isSpinnerActive = false;
+      });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['favorites'] && this.products) {
+      this.applyFilters();
+    }
+  }
+
+  private applyFilters(): void {
+    if (this.category) {
+      this.products = this.products.filter(product =>
+        product.category.toLowerCase() === this.category!.toLowerCase()
       );
+    } else if (this.favorites) {
+      this.products = this.products.filter(product =>
+        this.favorites.includes(product.id)
+      );
+    } else if (this.userCart) {
+      this.products = this.products.filter(product => {
+              return this.userCart?.totalProductsId.includes(product.id.toString());
+      }
+    )
+
+
+      // if (this.userCart) {
+      //   this.productSubscription = this.productsService.fetchProducts().subscribe(products => {
+      //     this.products = products.filter(product => {
+      //       return this.userCart?.totalProductsId.includes(product.id.toString());
+      //     }
+      //     );
+      //   });
+      // }
+
+
+
+    } else {
+      this.products
+    }
   }
 
   showMoreDetails(product: Product) {
@@ -44,11 +88,8 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-
-
   ngOnDestroy(): void {
     this.productSubscription.unsubscribe();
-
   }
 
 

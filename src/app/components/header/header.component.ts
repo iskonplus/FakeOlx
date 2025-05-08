@@ -21,7 +21,8 @@ export class NavComponent implements OnInit, OnDestroy {
   private userSubscription!: Subscription;
   favoritesSubscription!: Subscription;
   userState?: UserState;
-  totalFavorites = 0
+  totalFavorites = 0;
+  totalUserCart? = 0;
 
 
 
@@ -32,7 +33,8 @@ export class NavComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userSubscription = this.activeUser$.subscribe(state => this.userState = state);
-    this.favoritesSubscription = this.cardService.favorites$.subscribe(favorites=> this.totalFavorites = favorites.length)
+    this.favoritesSubscription = this.cardService.favorites$.subscribe(favorites => this.totalFavorites = favorites.length);
+    this.cardService.userCart$.subscribe(userCart=> this.totalUserCart = userCart?.totalProductsId.length)
 
   }
 

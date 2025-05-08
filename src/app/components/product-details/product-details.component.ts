@@ -1,3 +1,4 @@
+import { CardService } from '../../shared/card/card.service';
 import { LoginService } from './../../pages/login-page/services/login.service';
 import { Product } from './../../types/product';
 import { Component, Inject } from '@angular/core';
@@ -11,10 +12,29 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ProductDetailsComponent {
   isAddToCart = false;
   isUserLogged = false;
-  constructor(@Inject(MAT_DIALOG_DATA) public product: Product, private loginService: LoginService) { }
+  userId!: string;
+  totalProductsId!: number[];
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public product: Product,
+    private loginService: LoginService,
+    private cardService :CardService
+  ) { }
 
   ngOnInit(): void {
-    this.loginService.activeUser$.forEach(state => this.isUserLogged = state.isLoggedIn);
+    this.loginService.activeUser$.forEach(state => {
+      if (state.isLoggedIn) {
+        this.isUserLogged = state.isLoggedIn;
+        this.userId = state.user.id
+      }
+    });
+  }
+
+  toggleCartItem(prodId: number) {
+    this.isAddToCart = !this.isAddToCart;
+    // console.log(prodId);
+    // console.log(this.userId);
+    // this.cardService.getUserCart(this.userId).subscribe(response => this.cardService.setUserCart(response));
   }
 
 }

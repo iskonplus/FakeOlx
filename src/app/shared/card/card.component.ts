@@ -3,6 +3,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../types/product';
 import { CardService } from './card.service';
 import { Subscription } from 'rxjs';
+import { UserCart } from '../../types/user-cart';
 
 
 @Component({
@@ -21,7 +22,10 @@ export class CardComponent {
 
   private favoriteSub!: Subscription;
   private userSub!: Subscription;
+  private userCartSubscription!: Subscription;
   userId: string = '';
+  isCardInCart = false;
+  userCart!: UserCart;
 
   constructor(
     private cardService: CardService,
@@ -29,17 +33,19 @@ export class CardComponent {
   ) {}
 
   ngOnInit(): void {
-    this.userSub = this.loginService.activeUser$.subscribe(user => {
-      if (user?.isLoggedIn) {
-        this.userId = user.user.id;
+    this.userSub = this.loginService.activeUser$.subscribe(userState => {
+      if (userState?.isLoggedIn) {
+        this.userId = userState.user.id;
         this.cardService.setCurrentUser(this.userId);
       }
     });
+
 
     this.favoriteSub = this.cardService.favorites$.subscribe(favIds => {
       this.isCardLike = favIds.includes(this.product.id);
       this.typeFavoriteIcon = this.isCardLike ? 'favorite' : 'favorite_border';
     });
+
   }
 
   addToFavorite(event: Event): void {
