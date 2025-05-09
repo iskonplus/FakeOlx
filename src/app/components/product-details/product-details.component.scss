@@ -2,19 +2,19 @@
   background-color: #ffffff;
 }
 
-h2{
+h2 {
   font-weight: bolder;
   margin-left: 5px;
-  color:#002F34;
+  color: #002F34;
 }
 
 
-mat-dialog-actions{
+mat-dialog-actions {
   width: 100%;
   position: relative;
   margin-bottom: 30px;
 
-  button{
+  button {
     color: #ffffff;
     border: 6px solid #002F34;
     background-color: #002F34;
@@ -29,16 +29,34 @@ mat-dialog-actions{
   }
 
   button:hover {
-    color:#002F34;
+    color: #002F34;
     background-color: #ffffff;
   }
 
+  .isDisabled {
+  opacity: 0.5;
+  pointer-events: none;
+  }
 
 }
 
-button:first-child{
-left: 28px;
+
+button:first-child {
+  left: 28px;
 }
-button:last-child{
-right: 28px;
+
+button:last-child {
+  right: 28px;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+::ng-deep .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: #002F34 !important;
 }

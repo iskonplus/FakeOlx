@@ -10,6 +10,6 @@ export class UserCartComponent {
 
   userCart$ = this.cardService.userCart$;
 
-  constructor(private cardService: CardService,) { }
+  constructor(private cardService: CardService) { }
 
 }

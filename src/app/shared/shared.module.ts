@@ -39,7 +39,8 @@ import { HttpErrorComponent } from './httpError/http-error.component';
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+        MatProgressSpinnerModule,
 
   ]
 })

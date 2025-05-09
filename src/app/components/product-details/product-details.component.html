@@ -2,16 +2,16 @@
 <mat-dialog-content>
   <div class="wrapper_card">
 
+    <mat-spinner *ngIf="isDisabled" class="spinner"></mat-spinner>
     <app-card [product]="product" [isMoreInformation]="true">
     </app-card>
 
   </div>
 </mat-dialog-content>
 
-  <mat-dialog-actions>
-    <button
-    *ngIf="isUserLogged"
-    (click)="toggleCartItem(product.id)"
-    >{{!isAddToCart? 'Add to cart' : 'Remove cart'}}</button>
-    <button mat-dialog-close>Close</button>
+
+<mat-dialog-actions>
+  <button *ngIf="isUserLogged" [ngClass]="{ 'isDisabled': isDisabled }"
+    (click)="toggleCartItem(product.id)">{{!isAddToCart? 'Add to cart' : 'Remove cart'}}</button>
+  <button mat-dialog-close>Close</button>
 </mat-dialog-actions>

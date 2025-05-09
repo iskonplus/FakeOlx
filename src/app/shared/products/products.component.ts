@@ -17,6 +17,7 @@ import { UserCart } from '../../types/user-cart';
 export class ProductsComponent implements OnInit {
 
   productSubscription!: Subscription;
+  allProducts!: Product[];
   products!: Product[];
   cartSubscription!: Subscription;
   isMoreInformation = false;
@@ -38,7 +39,7 @@ export class ProductsComponent implements OnInit {
 
     this.productSubscription = this.productsService.fetchProducts()
       .subscribe(response => {
-        this.products = response;
+        this.allProducts = response;
         this.applyFilters();
         this.isSpinnerActive = false;
       });
@@ -52,20 +53,20 @@ export class ProductsComponent implements OnInit {
 
   private applyFilters(): void {
     if (this.category) {
-      this.products = this.products.filter(product =>
+      this.products = this.allProducts.filter(product =>
         product.category.toLowerCase() === this.category!.toLowerCase()
       );
     } else if (this.favorites) {
-      this.products = this.products.filter(product =>
+      this.products = this.allProducts.filter(product =>
         this.favorites.includes(product.id)
       );
     } else if (this.userCart) {
-      this.products = this.products.filter(product => {
-              return this.userCart?.totalProductsId.includes(product.id.toString());
+      this.products = this.allProducts.filter(product => {
+        return this.userCart?.totalProductsId.includes(product.id.toString());
       }
-    )
+      )
     } else {
-      this.products
+      this.products = this.allProducts;
     }
   }
 
