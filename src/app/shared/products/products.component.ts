@@ -45,7 +45,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['favorites'] && this.products) {
+    if ((changes['favorites'] || changes['userCart']) && this.products) {
       this.applyFilters();
     }
   }
@@ -64,19 +64,6 @@ export class ProductsComponent implements OnInit {
               return this.userCart?.totalProductsId.includes(product.id.toString());
       }
     )
-
-
-      // if (this.userCart) {
-      //   this.productSubscription = this.productsService.fetchProducts().subscribe(products => {
-      //     this.products = products.filter(product => {
-      //       return this.userCart?.totalProductsId.includes(product.id.toString());
-      //     }
-      //     );
-      //   });
-      // }
-
-
-
     } else {
       this.products
     }

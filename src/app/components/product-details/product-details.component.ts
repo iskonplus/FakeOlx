@@ -18,23 +18,23 @@ export class ProductDetailsComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public product: Product,
     private loginService: LoginService,
-    private cardService :CardService
+    private cardService: CardService
   ) { }
 
   ngOnInit(): void {
     this.loginService.activeUser$.forEach(state => {
       if (state.isLoggedIn) {
         this.isUserLogged = state.isLoggedIn;
-        this.userId = state.user.id
       }
+    });
+
+    this.cardService.userCart$.subscribe(userCart => {
+      this.isAddToCart = userCart?.totalProductsId.includes(this.product.id.toString()) ?? false;
     });
   }
 
   toggleCartItem(prodId: number) {
-    this.isAddToCart = !this.isAddToCart;
-    // console.log(prodId);
-    // console.log(this.userId);
-    // this.cardService.getUserCart(this.userId).subscribe(response => this.cardService.setUserCart(response));
+    this.cardService.toggleProductInCart(prodId);
   }
 
 }

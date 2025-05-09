@@ -1,7 +1,8 @@
+import { UserCart } from './../../types/user-cart';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { UserCart } from '../../types/user-cart';
+import { BehaviorSubject, EMPTY, Observable, switchMap, take, tap } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
@@ -64,12 +65,37 @@ export class CardService {
   userCart$ = this.userCartSubject.asObservable();
 
 
-  getUserCart(userId: string):Observable <UserCart> {
+  getUserCart(userId: string): Observable<UserCart> {
     return this.http.get<UserCart>(`${this.baseUrl}/${userId}`);
   }
 
   setUserCart(userCart: UserCart) {
     this.userCartSubject.next(userCart);
+  }
+
+  toggleProductInCart(productId: number): void {
+    this.userCart$.pipe(
+      take(1),
+      switchMap(userCart => {
+        if (!userCart) return EMPTY;
+
+        const prodId = productId.toString();
+        const updatedProductsId = userCart.totalProductsId.includes(prodId)
+          ? userCart.totalProductsId.filter(id => id !== prodId)
+          : [...userCart.totalProductsId, prodId];
+
+        const updatedCart: UserCart = {
+          ...userCart,
+          totalProductsId: updatedProductsId
+        };
+
+        return this.updateUserCart(updatedCart, userCart.userId);
+      })
+    ).subscribe(updatedCart => updatedCart && this.setUserCart(updatedCart));
+  }
+
+  updateUserCart(updatedCart: UserCart, userId: string): Observable<UserCart> {
+    return this.http.put<UserCart>(`${this.baseUrl}/${userId}`, updatedCart);
   }
 
 
