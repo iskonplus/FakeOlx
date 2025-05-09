@@ -17,7 +17,7 @@ export class LoginService {
   newUserCart!: UserCart;
 
   baseUrl = "https://6802395481c7e9fbcc44db3c.mockapi.io/fakeOlx/";
-  // createCartUrl = 'https://6802395481c7e9fbcc44db3c.mockapi.io/fakeOlx/user-cart';
+
 
   constructor(private http: HttpClient) { }
 
