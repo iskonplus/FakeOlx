@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../pages/login-page/services/login.service';
 import { User } from '../../types/user';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -9,6 +10,8 @@ import { User } from '../../types/user';
   styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent {
+
+  userCartSubscription!: Subscription;
 
   userData: User = {
     name: '',
@@ -49,7 +52,10 @@ export class RegistrationComponent {
 
 
     this.loginService.userRegistration(this.userData).subscribe({
-      next: _ => this.registrationSuccess.emit(),
+      next: user => {
+        this.userCartSubscription = this.loginService.createUserCart(user.id).subscribe();
+        this.registrationSuccess.emit();
+      },
       error: (err) => this.registrationFailed.emit(err.statusText + ', try again.'),
       complete: () => {
         this.loginForm.reset({
@@ -61,14 +67,15 @@ export class RegistrationComponent {
     })
 
 
-
-
-
-
     Object.keys(this.loginForm.controls).forEach(controlName => {
       this.loginForm.get(controlName)?.setErrors(null);
     });
 
+  }
+
+
+  ngOnDestroy(): void {
+    this.userCartSubscription && this.userCartSubscription.unsubscribe();
   }
 
 }
