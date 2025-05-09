@@ -1,7 +1,5 @@
-<ng-container *ngIf="userCart$ | async as userCart; else noCart">
-  <h2>{{userCart.totalProductsId.length<1? 'Yor cart is empty' : 'My cart' }}</h2>
+<ng-container *ngIf="userCart$ | async as userCart;">
+  <h2>{{userCart.totalProductsId.length<1? 'Your cart is empty' : 'My cart' }}</h2>
       <app-products [userCart]="userCart"></app-products>
 </ng-container>
-<ng-template #noCart>
-  <h2>Your cart is empty...</h2>
-</ng-template>
+

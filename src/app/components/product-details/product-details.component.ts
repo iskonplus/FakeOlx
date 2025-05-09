@@ -14,6 +14,7 @@ export class ProductDetailsComponent {
   isUserLogged = false;
   userId!: string;
   totalProductsId!: number[];
+  isDisabled = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public product: Product,
@@ -30,10 +31,13 @@ export class ProductDetailsComponent {
 
     this.cardService.userCart$.subscribe(userCart => {
       this.isAddToCart = userCart?.totalProductsId.includes(this.product.id.toString()) ?? false;
+      this.isDisabled = false;
     });
   }
 
   toggleCartItem(prodId: number) {
+    this.isDisabled = true;
+    this.isAddToCart = !this.isAddToCart;
     this.cardService.toggleProductInCart(prodId);
   }
 
