@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable} from 'rxjs';
 import { User } from '../../../types/user';
 import { ActiveUser } from '../../../types/active-user';
 import { UserState } from '../../../types/user-state.model';
+import { UserCart } from '../../../types/user-cart';
 
 
 @Injectable({
@@ -13,8 +14,10 @@ export class LoginService {
   private initialUserState: UserState = { isLoggedIn: false };
   private userSubject = new BehaviorSubject<UserState>(this.initialUserState);
   activeUser$ = this.userSubject.asObservable();
+  newUserCart!: UserCart;
 
   baseUrl = "https://6802395481c7e9fbcc44db3c.mockapi.io/fakeOlx/";
+  // createCartUrl = 'https://6802395481c7e9fbcc44db3c.mockapi.io/fakeOlx/user-cart';
 
   constructor(private http: HttpClient) { }
 
@@ -24,13 +27,26 @@ export class LoginService {
   }
 
 
-  userRegistration(userData: User): Observable<User> {
+  userRegistration(userData: User): Observable<ActiveUser> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
-    return this.http.post<User>(this.baseUrl + '/user', userData, httpOptions);
+    return this.http.post<ActiveUser>(this.baseUrl + '/user', userData, httpOptions);
+  }
+
+  createUserCart(userId: string) {
+    this.newUserCart = {
+      userId: userId,
+      totalProductsId: []
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+    return this.http.post<User>(this.baseUrl + '/user-cart', this.newUserCart, httpOptions);
   }
 
   setUser(user: ActiveUser) {
