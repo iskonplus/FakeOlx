@@ -1,7 +1,9 @@
+import { ProductsService } from './../../services/products.service';
 import { CategoriesService } from './../../services/categories.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ValueChangeEvent } from '@angular/forms';
 import { NewProduct } from '../../types/new-product';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-ads-page',
@@ -10,12 +12,13 @@ import { NewProduct } from '../../types/new-product';
 })
 export class CreateAdsPageComponent implements OnInit {
 
-  newProduct: NewProduct = { title: '', description: '', imageUrl: '', category: '', price: 0 };
+  newProduct: NewProduct = { title: '', description: '', image: '', category: '', price: 0 };
   categories: string[] = [];
   isSpinnerActive = false;
+  createProductSubscription!: Subscription;
 
 
-  constructor(private categoriesService: CategoriesService) { }
+  constructor(private categoriesService: CategoriesService, private productsService: ProductsService) { }
   ngOnInit(): void {
     this.categoriesService.categoriesData.forEach(el => this.categories.push(el.heading))
 
@@ -30,14 +33,30 @@ export class CreateAdsPageComponent implements OnInit {
   });
 
   submit() {
+
     this.isSpinnerActive = true;
-    this.newProduct.title = this.createAdsForm.get('title')?.value ?? '';
-    this.newProduct.description = this.createAdsForm.get('description')?.value ?? '';
-    this.newProduct.imageUrl = this.createAdsForm.get('imageUrl')?.value ?? '';
-    this.newProduct.category = this.createAdsForm.get('category')?.value ?? '';
-    this.newProduct.price = this.createAdsForm.get('price')?.value ?? 0;
-    console.log(this.newProduct);
-    setInterval(() => { this.isSpinnerActive = false; }, 5000);
+    this.newProduct = {
+      title: this.createAdsForm.get('title')?.value ?? '',
+      description: this.createAdsForm.get('description')?.value ?? '',
+      image: this.createAdsForm.get('imageUrl')?.value ?? '',
+      category: this.createAdsForm.get('category')?.value ?? '',
+      price: this.createAdsForm.get('price')?.value ?? 0,
+    };
+
+    this.createProductSubscription = this.productsService.createProduct(this.newProduct).subscribe(
+      _ => {
+        this.isSpinnerActive = false;
+      }
+    )
+
+  }
+
+
+
+  ngOnDestroy(): void {
+    if (this.createProductSubscription) {
+      this.createProductSubscription.unsubscribe();
+    }
   }
 
 }
