@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, of, retry, tap, throwError } from 'rxjs';
 import { Product } from '../types/product';
+import { NewProduct } from '../types/new-product';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,14 @@ export class ProductsService {
 
   getCachedProducts(): Product[] {
     return this.products;
+  }
+
+
+  createProduct(product: NewProduct): Observable<Product> {
+    return this.http.post<Product>(this.urlProducts, product).pipe(
+      tap(prod => this.products.push(prod))
+    )
+
   }
 
 }
