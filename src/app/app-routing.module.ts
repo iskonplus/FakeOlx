@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TestComponent } from './components/test/test.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
@@ -17,7 +16,6 @@ const routes: Routes = [
   { path: 'user/:id/favorites', component: UserFavoriteComponent},
   { path: 'user/:id/cart', component: UserCartComponent},
   { path: 'user/:id/add-ads', component: CreateAdsPageComponent},
-  { path: 'test', component: TestComponent },
   { path: 'category/:cat', component: ShowCategoryPageComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
