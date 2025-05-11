@@ -67,10 +67,7 @@ export class RegistrationComponent {
     })
 
 
-    Object.keys(this.loginForm.controls).forEach(controlName => {
-      this.loginForm.get(controlName)?.setErrors(null);
-    });
-
+    this.loginForm.reset();
   }
 
 

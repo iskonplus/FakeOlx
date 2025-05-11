@@ -49,14 +49,8 @@ export class LoginComponent {
           this.handleLoginSuccess(user[0]);
         },
         error: (err) => { this.showSpinner.emit(), this.loginFailed.emit('User ' + err.statusText + ', try again.') },
-        complete: () => { this.showSpinner.emit(), this.loginForm.reset() }
+        complete: () => this.showSpinner.emit()
       })
-
-
-
-    Object.keys(this.loginForm.controls).forEach(controlName => {
-      this.loginForm.get(controlName)?.setErrors(null);
-    });
   }
 
 
@@ -65,6 +59,7 @@ export class LoginComponent {
     this.userCartSubscription = this.cardService.getUserCart(user.id).subscribe(cardInCart => {
       this.cardService.setUserCart(cardInCart);
       this.router.navigate(['/']);
+      this.loginForm.reset();
     });
   }
 

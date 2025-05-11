@@ -3,19 +3,23 @@
   <mat-form-field class="form-field" appearance="fill">
     <mat-label>Email</mat-label>
     <input type="email" matInput formControlName="email" />
-    @if (loginForm.get('email')?.hasError('required')) {
-    <mat-error>Email is required</mat-error>
-    } @if (loginForm.get('email')?.hasError('email')) {
-    <mat-error>Invalid email</mat-error>
-    }
+    <mat-error
+      *ngIf="loginForm.get('email')?.hasError('required') && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)">
+      Email is required
+    </mat-error>
+    <mat-error
+      *ngIf="loginForm.get('email')?.hasError('email') && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)">
+      Invalid email
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field class="form-field" appearance="fill">
     <mat-label>Password</mat-label>
     <input type="password" matInput formControlName="password" />
-    @if (loginForm.get('password')?.hasError('required')) {
-    <mat-error>Password is required</mat-error>
-    }
+    <mat-error
+      *ngIf="loginForm.get('password')?.hasError('required') && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)">
+      Password is required
+    </mat-error>
   </mat-form-field>
 
   <button type="submit" class="btn-login" (click)="submit()">
