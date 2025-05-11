@@ -11,6 +11,7 @@ import { FilterProductsPipe } from '../pipes/filter-products.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { HttpErrorComponent } from './httpError/http-error.component';
+import { ReturnToMainComponent } from './return-to-main/return-to-main.component';
 
 
 
@@ -23,6 +24,7 @@ import { HttpErrorComponent } from './httpError/http-error.component';
     FilterProductsPipe,
     HttpErrorComponent,
     CardComponent,
+    ReturnToMainComponent,
 
 
   ],
@@ -31,6 +33,7 @@ import { HttpErrorComponent } from './httpError/http-error.component';
     SearchComponent,
     HttpErrorComponent,
     CardComponent,
+    ReturnToMainComponent
   ],
   imports: [
     CommonModule,

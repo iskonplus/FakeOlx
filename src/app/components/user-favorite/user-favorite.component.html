@@ -1,10 +1,13 @@
 <ng-container *ngIf="favoritesCardId; else noFavorite">
-<h2>{{favoritesCardId.length>1? 'My favorites':'My favorite'}}</h2>
-<div class="wrapper-cards">
-  <app-products [favorites]="favoritesCardId"></app-products>
-</div>
-  </ng-container>
-  <ng-template #noFavorite>
-    <h2>You don't have any favorites...</h2>
-  </ng-template>
+  <div class="wrapper">
+    <app-return-to-main></app-return-to-main>
+    <h2>{{favoritesCardId.length>1? 'My favorites':'My favorite'}}</h2>
+  </div>
 
+  <div class="wrapper-cards">
+    <app-products [favorites]="favoritesCardId"></app-products>
+  </div>
+</ng-container>
+<ng-template #noFavorite>
+  <h2>You don't have any favorites...</h2>
+</ng-template>

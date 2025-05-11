@@ -1,8 +1,5 @@
-<div class="wrapper-header">
-  <button type="submit" class="btn-return" (click)="returnToMainPage()">
-    Return
-    <mat-icon>reply</mat-icon>
-  </button>
+<div class="wrapper">
+  <app-return-to-main></app-return-to-main>
   <h2>{{category|uppercase}}</h2>
 </div>
 <app-search (filterTerm)="handleFilterTerm($event)"></app-search>
