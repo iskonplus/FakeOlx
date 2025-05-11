@@ -20,9 +20,4 @@ export class ShowCategoryPageComponent {
   handleFilterTerm(filterTerm: string) {
     this.term = filterTerm;
   }
-
-  returnToMainPage() {
-    this.router.navigate(['/']);
-  }
-
 }

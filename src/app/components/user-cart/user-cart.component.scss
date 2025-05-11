@@ -1,5 +1,14 @@
 :host{
+  display: block;
+  max-width: 1270px;
   margin: auto;
   text-align: center;
-  color: #002F34;
+  position: relative;
+  margin-top: 40px;
+
+  .wrapper{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
   }
+}
