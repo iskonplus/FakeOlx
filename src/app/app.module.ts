@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TestComponent } from './components/test/test.component';
 import { NavComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -37,6 +36,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { SharedModule } from './shared/shared.module';
 import { UserFavoriteComponent } from './components/user-favorite/user-favorite.component';
 import { UserCartComponent } from './components/user-cart/user-cart.component';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -47,7 +47,6 @@ import { UserCartComponent } from './components/user-cart/user-cart.component';
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent,
     NavComponent,
     FooterComponent,
     LoginPageComponent,
@@ -61,6 +60,8 @@ import { UserCartComponent } from './components/user-cart/user-cart.component';
     ProductDetailsComponent,
     UserFavoriteComponent,
     UserCartComponent,
+
+
 
   ],
   imports: [
@@ -82,8 +83,7 @@ import { UserCartComponent } from './components/user-cart/user-cart.component';
     MatDialogTitle,
     MatProgressSpinnerModule,
     SharedModule,
-
-
+    MatSelectModule,
 
   ],
   providers: [
