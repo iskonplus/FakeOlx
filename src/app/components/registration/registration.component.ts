@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../pages/login-page/services/login.service';
 import { User } from '../../types/user';
 import { Subscription } from 'rxjs';
+import { ActiveUser } from '../../types/active-user';
 
 @Component({
   selector: 'app-registration',
@@ -12,6 +13,8 @@ import { Subscription } from 'rxjs';
 export class RegistrationComponent {
 
   userCartSubscription!: Subscription;
+  userAdsSubscription!: Subscription;
+  userRegistrationSubscription!: Subscription;
 
   userData: User = {
     name: '',
@@ -51,28 +54,37 @@ export class RegistrationComponent {
     // const acceptTerms = this.loginForm.get('acceptTerms')?.value;
 
 
-    this.loginService.userRegistration(this.userData).subscribe({
+    this.userRegistrationSubscription = this.loginService.userRegistration(this.userData).subscribe({
       next: user => {
-        this.userCartSubscription = this.loginService.createUserCart(user.id).subscribe();
+        this.createAdAndCart(user);
         this.registrationSuccess.emit();
       },
       error: (err) => this.registrationFailed.emit(err.statusText + ', try again.'),
       complete: () => {
         this.loginForm.reset({
-        name: '',
-        email: '',
-        password: '',
-        acceptTerms: ''
-      }),   this.showSpinner.emit()}
+          name: '',
+          email: '',
+          password: '',
+          acceptTerms: ''
+        }), this.showSpinner.emit()
+      }
     })
 
 
     this.loginForm.reset();
   }
 
+  createAdAndCart(user: ActiveUser) {
+    this.userCartSubscription = this.loginService.createUserCart(user.id).subscribe();
+    this.userAdsSubscription = this.loginService.createUserAds(user.id).subscribe()
+
+  }
+
 
   ngOnDestroy(): void {
+    this.userRegistrationSubscription && this.userRegistrationSubscription.unsubscribe();
     this.userCartSubscription && this.userCartSubscription.unsubscribe();
+    this.userAdsSubscription && this.userAdsSubscription.unsubscribe();
   }
 
 }
