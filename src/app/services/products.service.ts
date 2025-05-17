@@ -17,6 +17,7 @@ export class ProductsService {
   constructor(private http: HttpClient, private errorService: ErrorService) { }
 
   urlProducts = 'https://fakestoreapi.com/products';
+  urlCreateUserProduct = 'https://682896b46075e87073a44738.mockapi.io/notOlx/';
 
   fetchProducts(): Observable<Product[]> {
     if (this.productsLoaded) {
