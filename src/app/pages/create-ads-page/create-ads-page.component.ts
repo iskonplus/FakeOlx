@@ -1,9 +1,11 @@
+import { ErrorService } from './../../shared/httpError/error.service';
 import { ProductsService } from './../../services/products.service';
 import { CategoriesService } from './../../services/categories.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, ValueChangeEvent } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NewProduct } from '../../types/new-product';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-ads-page',
@@ -18,7 +20,11 @@ export class CreateAdsPageComponent implements OnInit {
   createProductSubscription!: Subscription;
 
 
-  constructor(private categoriesService: CategoriesService, private productsService: ProductsService) { }
+  constructor(private categoriesService: CategoriesService,
+    private productsService: ProductsService,
+    private errorService: ErrorService,
+    private router: Router
+  ) { }
   ngOnInit(): void {
     this.categoriesService.categoriesData.forEach(el => this.categories.push(el.heading))
 
@@ -44,8 +50,10 @@ export class CreateAdsPageComponent implements OnInit {
     };
 
     this.createProductSubscription = this.productsService.createProduct(this.newProduct).subscribe(
-      _ => {
-        this.isSpinnerActive = false;
+      {
+        next: _ => this.router.navigate(['/']),
+        error: err => {this.errorService.handleError(err.message), this.isSpinnerActive = false},
+        complete: () => this.isSpinnerActive = false
       }
     )
 
