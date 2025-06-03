@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+
+
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -11,6 +13,4 @@ export class MainPageComponent {
   handleFilterTerm(filterTerm: string) {
     this.term = filterTerm;
   }
-
-
 }

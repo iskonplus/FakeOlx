@@ -6,6 +6,7 @@ import { User } from '../../types/user';
 import { Router } from '@angular/router';
 import { CardService } from '../../shared/card/card.service';
 import { ActiveUser } from '../../types/active-user';
+import { ProductsService } from '../../services/products.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class LoginComponent {
   @Output() showSpinner = new EventEmitter<void>();
 
 
-  constructor(private loginService: LoginService, private router: Router, private cardService: CardService) { }
+  constructor(private loginService: LoginService, private router: Router, private cardService: CardService, private productService: ProductsService) { }
 
 
   loginForm = new FormGroup({

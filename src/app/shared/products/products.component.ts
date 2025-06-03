@@ -16,10 +16,10 @@ import { UserCart } from '../../types/user-cart';
 })
 export class ProductsComponent implements OnInit {
 
-  productSubscription!: Subscription;
+  productSubscription?: Subscription;
   allProducts!: Product[];
   products!: Product[];
-  cartSubscription!: Subscription;
+  cartSubscription?: Subscription;
   isMoreInformation = false;
   isSpinnerActive = false;
   activeUser!: ActiveUser;
@@ -37,7 +37,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.isSpinnerActive = true;
 
-    this.productSubscription = this.productsService.fetchProducts()
+    this.productSubscription = this.productsService.products$
       .subscribe(response => {
         this.allProducts = response;
         this.applyFilters();
@@ -77,7 +77,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.productSubscription.unsubscribe();
+    this.productSubscription?.unsubscribe();
   }
 
 
