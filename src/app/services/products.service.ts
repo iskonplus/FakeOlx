@@ -67,7 +67,7 @@ export class ProductsService {
   // }
 
   updateUserAds(newProduct: Product, userId: string): Observable<UserAds> {
-    // const newProdId = this.products[this.products.length - 1].id + 1;
+    // const newProdId = this.products[this.products.length - 1].id + 1
     // console.log(newProdId);
     // newProduct.id = newProdId;
 
@@ -101,4 +101,5 @@ export class ProductsService {
         })
       )
   }
+
 }
