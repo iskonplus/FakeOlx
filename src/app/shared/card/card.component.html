@@ -1,0 +1,25 @@
+<div class="wrapper_card">
+  <span *ngIf="isCardInCart">card in cart</span>
+  <mat-card class="example-card" appearance="outlined" (click)="showMoreDetails()">
+    <img mat-card-image [src]="product.image" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <mat-card-actions>
+        <mat-card-title>{{product.title}}</mat-card-title>
+        <mat-icon class="favorite" *ngIf="userId" [ngClass]="{ like: isCardLike }"
+          (click)="addToFavorite($event)">{{typeFavoriteIcon}}</mat-icon>
+      </mat-card-actions>
+      <p *ngIf="isMoreInformation" class="details">
+        {{product.description}}
+      </p>
+
+      <mat-card-actions class="information">
+        <div>
+          <p class="price">{{product.price| currency}}</p>
+          <p class="rating" *ngIf="isMoreInformation && product.rating"> <mat-icon>star_border</mat-icon>{{product.rating.rate}}</p>
+        </div>
+        <a href="" class="category">{{product.category}}</a>
+      </mat-card-actions>
+
+    </mat-card-content>
+  </mat-card>
+</div>

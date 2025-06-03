@@ -1,0 +1,13 @@
+<div class="wrapper_container">
+  <article class="container">
+    <app-categories></app-categories>
+  </article>
+</div>
+<article class="container">
+  <app-search (filterTerm)="handleFilterTerm($event)"></app-search>
+</article>
+
+<article class="container ads">
+  <h2>Last ads</h2>
+  <app-products [term]="term"></app-products>
+</article>

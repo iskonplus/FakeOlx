@@ -1,0 +1,9 @@
+<ng-container *ngIf="activeUser$ | async as userState">
+  <h2 *ngIf="userState.isLoggedIn">
+  Hello {{ userState.user.name }}!
+</h2>
+</ng-container>
+<button type="submit"  class="btn-logout" (click)="logOut()">
+  Log out
+  <mat-icon>logout</mat-icon>
+</button>

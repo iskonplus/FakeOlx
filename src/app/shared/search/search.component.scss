@@ -1,0 +1,106 @@
+.wrapper_form {
+  max-width: 1270px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+
+  form {
+    width: 100%;
+    display: flex;
+    margin: auto;
+    padding: 30px 5px;
+
+
+    .wrapper_input {
+      width: 100%;
+      display: flex;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      overflow: hidden;
+
+      input {
+        border: none;
+        font-size: 20px;
+        padding-left: 50px;
+        outline: none;
+        border-bottom: 3px solid #ffffff;
+      }
+
+      input:focus {
+        border-bottom: 3px solid #002F34;
+      }
+
+      .find {
+        width: 100%;
+      }
+
+      .wrapper_find::after {
+        content: '';
+        width: 2px;
+        height: 45px;
+        background-color: #cccccc;
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        transform: translate(-50%, -50%);
+      }
+
+      .wrapper_find {
+        width: 100%;
+        display: flex;
+        position: relative;
+
+        label {
+          display: block;
+          font-size: 25px;
+          position: absolute;
+          color: #002F34;
+          top: 55%;
+          left: 25px;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .wrapper_city {
+        display: flex;
+        position: relative;
+
+        label {
+          display: block;
+          font-size: 25px;
+          position: absolute;
+          color: #002F34;
+          top: 55%;
+          left: 25px;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+    }
+
+    button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #ffffff;
+      background-color: #002F34;
+      padding: 20px 35px;
+      font-size: 20px;
+      cursor: pointer;
+      border: 6px solid #002F34;
+      transition: .3s;
+      font-weight: 400;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+
+      mat-icon {
+        margin-left: 20px;
+      }
+    }
+
+    button:hover {
+      background-color: #ffffff;
+      color: #002F34;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+<div class="wrapper">
+  <app-return-to-main></app-return-to-main>
+  <h2>{{category|uppercase}}</h2>
+</div>
+<app-search (filterTerm)="handleFilterTerm($event)"></app-search>
+<app-products [category]="category" [term]="term"></app-products>

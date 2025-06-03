@@ -1,0 +1,55 @@
+<h2>Add your ads</h2>
+<form class="form flex flex-center" [formGroup]="createAdsForm">
+  @if(isSpinnerActive){
+<mat-spinner class="spinner"></mat-spinner>
+}
+
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Title</mat-label>
+    <input type="text" matInput formControlName="title" />
+    <mat-error *ngIf="createAdsForm.get('title')?.hasError('required')">Title is required</mat-error>
+  </mat-form-field>
+
+<mat-form-field>
+  <mat-label>Select Category</mat-label>
+  <mat-select formControlName="category">
+    <mat-option *ngFor="let cat of categories" [value]="cat">{{cat}}</mat-option>
+    <mat-error *ngIf="createAdsForm.get('category')?.hasError('required')">Category is required</mat-error>
+  </mat-select>
+</mat-form-field>
+
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+    <mat-error *ngIf="createAdsForm.get('description')?.hasError('required')">Description is required</mat-error>
+  </mat-form-field>
+
+  <div class="wrapper-img">
+    <div class="wrapper-input">
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Price</mat-label>
+        <input type="number" matInput min="0" step="0.01" formControlName="price" />
+        <mat-error *ngIf="createAdsForm.get('price')?.hasError('required')">Price is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Image URL</mat-label>
+        <input matInput formControlName="imageUrl" type="text">
+        <mat-error *ngIf="createAdsForm.get('imageUrl')?.hasError('required')">Image Url is required</mat-error>
+      </mat-form-field>
+
+    </div>
+
+
+    <img [src]="createAdsForm.get('imageUrl')?.value || 'assets/Image-not-found.png'" alt="Preview" />
+  </div>
+
+  <button type="submit" class="btn-submit"
+  (click)="submit()"
+  [disabled]="createAdsForm.invalid"
+  >
+    add ads
+    <mat-icon>add</mat-icon>
+  </button>
+</form>

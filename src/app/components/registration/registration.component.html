@@ -1,0 +1,63 @@
+<form class="form flex flex-center" [formGroup]="loginForm">
+
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input type="name" matInput formControlName="name" />
+    @if (loginForm.get('name')?.hasError('required')) {
+    <mat-error>Name is required</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput formControlName="email" />
+    @if (loginForm.get('email')?.hasError('required')) {
+    <mat-error>Email is required</mat-error>
+    } @if (loginForm.get('email')?.hasError('email')) {
+    <mat-error>Invalid email</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput formControlName="password" />
+    @if (loginForm.get('password')?.hasError('required')) {
+    <mat-error>Password is required</mat-error>
+    }
+  </mat-form-field>
+
+  <div class="aditional-info">
+    <div class="password-info">
+      <h4>Your password must have</h4>
+      <ul>
+        <li>9 or more characters</li>
+        <li>Capital letter</li>
+        <li>Lower case letter</li>
+        <li>At least one digit</li>
+      </ul>
+    </div>
+
+    <p>By clicking "Create an account" or continuing through one of the providers indicated above, I accept the OLX
+      Terms and Conditions</p>
+    <p>I understand that OLX uses my personal data in accordance with the Privacy Policy and the Cookies and Similar
+      Technologies Policy . OLX uses automated systems and partners to analyze how I use the services in order to
+      provide appropriate product functionality, content, customized and interest-based advertising, as well as
+      protection against spam, malware and unauthorized use of our services.</p>
+
+    <div class="agreement">
+      <mat-checkbox formControlName="acceptTerms"
+        [ngClass]="{'error': loginForm.get('acceptTerms')?.hasError('required') && loginForm.get('acceptTerms')?.touched }">
+      </mat-checkbox>
+
+      <p>I understand that OLX uses my personal data in accordance with the Privacy Policy and the Cookies and Similar
+        Technologies Policy . OLX uses automated systems and partners to analyze how I use the services in order to
+        provide appropriate product functionality, content, customized and interest-based advertising, as well as
+        protection against spam, malware and unauthorized use of our services.</p>
+    </div>
+  </div>
+
+  <button type="submit" class="btn-login" (click)="submit()">
+    Create an account
+    <mat-icon>person_add</mat-icon>
+  </button>
+</form>

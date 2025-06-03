@@ -1,0 +1,88 @@
+:host {
+  width: 450px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  padding: 20px 15px;
+  background-color: #ffffff;
+  border-radius: 9px;
+
+  .wrapper-tittle {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    position: relative;
+    color: #002F34;
+
+    h3::after,
+    h3::before {
+      content: '';
+      width: 45%;
+      display: block;
+      height: 1px;
+      position: absolute;
+      top: 50%;
+      background-color: #002F34;
+    }
+
+    h3::after {
+      left: 0;
+    }
+
+    h3::before {
+      right: 0;
+    }
+
+  }
+
+  .log {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-tab-header {
+    padding: 0px 15px;
+  }
+
+  ::ng-deep .mat-mdc-form-field-focus-overlay {
+    background-color: #F2F4F5;
+    border: 1px solid #002F34 !important;
+  }
+  ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: #F2F4F5;
+  }
+
+  ::ng-deep .mat-mdc-tab-body-content{
+    overflow: visible;
+    width: 100%;
+  }
+  ::ng-deep .mat-mdc-form-field {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-tab-body.mat-mdc-tab-body-active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 15px;
+  }
+
+  ::ng-deep .mat-mdc-tab .mdc-tab-indicator__content--underline{
+    border-color: #002F34 !important;
+  }
+
+  .spinner{
+    position: absolute;
+    z-index: 3;
+  }
+  ::ng-deep .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: #002F34;
+}
+
+}

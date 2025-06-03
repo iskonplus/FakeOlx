@@ -1,0 +1,18 @@
+.wrapper_products {
+  width: 100%;
+  padding-bottom: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+
+  .spinner{
+   position: absolute;
+   left: 0;
+   top: 0;
+   z-index: 5;
+  }
+
+  app-card{
+    width: 25%;
+  }
+}
