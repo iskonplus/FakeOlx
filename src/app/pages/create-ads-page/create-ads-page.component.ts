@@ -1,11 +1,13 @@
+import { ActiveUser } from './../../types/active-user';
+import { LoginService } from './../login-page/services/login.service';
 import { ErrorService } from './../../shared/httpError/error.service';
 import { ProductsService } from './../../services/products.service';
 import { CategoriesService } from './../../services/categories.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NewProduct } from '../../types/new-product';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { Product } from '../../types/product';
 
 @Component({
   selector: 'app-create-ads-page',
@@ -14,19 +16,28 @@ import { Router } from '@angular/router';
 })
 export class CreateAdsPageComponent implements OnInit {
 
-  newProduct: NewProduct = { title: '', description: '', image: '', category: '', price: 0 };
+  newProduct: Product = {
+    title: '', description: '', image: '', category: '', price: 0, id: 0,
+    rating: {
+      rate: 0,
+      count: 0
+    }
+  };
   categories: string[] = [];
   isSpinnerActive = false;
-  createProductSubscription!: Subscription;
+  updateUserAdsSubscription?: Subscription;
+  userId!: string;
 
 
   constructor(private categoriesService: CategoriesService,
     private productsService: ProductsService,
     private errorService: ErrorService,
+    private loginService: LoginService,
     private router: Router
   ) { }
   ngOnInit(): void {
     this.categoriesService.categoriesData.forEach(el => this.categories.push(el.heading))
+    this.loginService.activeUser$.forEach(state => state.isLoggedIn && (this.userId = state.user.id));
 
   }
 
@@ -41,18 +52,18 @@ export class CreateAdsPageComponent implements OnInit {
   submit() {
 
     this.isSpinnerActive = true;
-    this.newProduct = {
-      title: this.createAdsForm.get('title')?.value ?? '',
-      description: this.createAdsForm.get('description')?.value ?? '',
-      image: this.createAdsForm.get('imageUrl')?.value ?? '',
-      category: this.createAdsForm.get('category')?.value ?? '',
-      price: this.createAdsForm.get('price')?.value ?? 0,
-    };
 
-    this.createProductSubscription = this.productsService.createProduct(this.newProduct).subscribe(
+    this.newProduct.title = this.createAdsForm.get('title')?.value ?? '';
+    this.newProduct.description = this.createAdsForm.get('description')?.value ?? '';
+    this.newProduct.image = this.createAdsForm.get('imageUrl')?.value ?? '';
+    this.newProduct.category = this.createAdsForm.get('category')?.value ?? '';
+    this.newProduct.price = this.createAdsForm.get('price')?.value ?? 0;
+
+
+    this.updateUserAdsSubscription = this.productsService.updateUserAds(this.newProduct, this.userId).subscribe(
       {
         next: _ => this.router.navigate(['/']),
-        error: err => {this.errorService.handleError(err.message), this.isSpinnerActive = false},
+        error: err => { this.errorService.handleError(err.message), this.isSpinnerActive = false },
         complete: () => this.isSpinnerActive = false
       }
     )
@@ -62,9 +73,8 @@ export class CreateAdsPageComponent implements OnInit {
 
 
   ngOnDestroy(): void {
-    if (this.createProductSubscription) {
-      this.createProductSubscription.unsubscribe();
-    }
+    this.updateUserAdsSubscription?.unsubscribe();
+
   }
 
 }

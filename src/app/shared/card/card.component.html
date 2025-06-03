@@ -15,7 +15,7 @@
       <mat-card-actions class="information">
         <div>
           <p class="price">{{product.price| currency}}</p>
-          <p class="rating" *ngIf="isMoreInformation"> <mat-icon>star_border</mat-icon>{{product.rating.rate}}</p>
+          <p class="rating" *ngIf="isMoreInformation && product.rating"> <mat-icon>star_border</mat-icon>{{product.rating.rate}}</p>
         </div>
         <a href="" class="category">{{product.category}}</a>
       </mat-card-actions>

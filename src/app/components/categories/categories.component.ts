@@ -23,7 +23,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.productsSubscription = this.productsService.fetchProducts().subscribe(response => {
+    this.productsSubscription = this.productsService.products$.subscribe(response => {
       response.forEach(card => {
         this.availableCategories.push(card.category.toLowerCase())
       })
