@@ -13,7 +13,7 @@ import { UserAds } from '../types/user-ads';
 
 export class ProductsService {
   // private products: Product[] = [];
-  private productsLoaded = false;
+  // private productsLoaded = false;
 
   constructor(private http: HttpClient, private errorService: ErrorService) { }
 
@@ -34,7 +34,7 @@ export class ProductsService {
       tap((products) => {
         this.count++
         this.setProducts(products);
-        this.getUsersAds().subscribe();
+        this.getAllUsersAds().subscribe();
         console.log(this.count);
       }),
       catchError(this.errorHandler.bind(this))
@@ -51,48 +51,34 @@ export class ProductsService {
     return throwError(() => error.message);
   }
 
-  // getCachedProducts(): Product[] {
-  //   // return this.products;
-  // }
-
-
-  // createProduct(product: NewProduct, userId: string): Observable<Product> {
-  //   return this.http.post<Product>(this.urlProducts, product).pipe(
-  //     tap(prod => {
-  //       this.products.push(prod);
-  //       this.updateUserAds(prod, userId).subscribe(data=>console.log(data))
-  //     })
-  //   )
-
-  // }
 
   updateUserAds(newProduct: Product, userId: string): Observable<UserAds> {
-    // const newProdId = this.products[this.products.length - 1].id + 1
-    // console.log(newProdId);
-    // newProduct.id = newProdId;
 
     const updatedAd: UserAds = {
       userId: userId,
       totalAds: [newProduct]
     };
 
-
-
     return this.http.put<UserAds>(`${this.urlUserAds}/${userId}`, updatedAd).pipe(
-      tap((data) => {
-        console.log('Product updated successfully', data);
-        // this.products.push(newProduct);
+      tap( _ => {
+        const currentProducts = this.getCurrentProducts();
+        this.setProducts([...currentProducts, newProduct]);
       })
     )
 
   }
 
+   getUserAds(userId: string): Observable<UserAds[]> {
+    return this.http.get<UserAds[]>(`${this.urlUserAds}/${userId}`)
+  }
 
-  getUsersAds(): Observable<UserAds[]> {
+
+
+  getAllUsersAds(): Observable<UserAds[]> {
     return this.http.get<UserAds[]>(this.urlUserAds)
       .pipe(
         tap(data => {
-          const currentProducts = this.productsSubject.getValue();
+          const currentProducts = this.getCurrentProducts();
           const usersAdsProducts: Product[] = [];
           data.forEach(userAds => {
             userAds.totalAds.forEach(userAd => usersAdsProducts.push(userAd as Product))
@@ -100,6 +86,23 @@ export class ProductsService {
           this.setProducts([...currentProducts, ...usersAdsProducts]);
         })
       )
+  }
+
+  generateUniqueId(): number {
+    const currentProducts = this.getCurrentProducts();
+    const existingIds = currentProducts.map(product => product.id);
+    let newId = 1;
+
+    while (existingIds.includes(newId)) {
+      newId++;
+    }
+
+    return newId;
+  }
+
+
+  getCurrentProducts(): Product[] {
+    return this.productsSubject.getValue();
   }
 
 }

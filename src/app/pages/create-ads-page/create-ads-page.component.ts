@@ -58,6 +58,7 @@ export class CreateAdsPageComponent implements OnInit {
     this.newProduct.image = this.createAdsForm.get('imageUrl')?.value ?? '';
     this.newProduct.category = this.createAdsForm.get('category')?.value ?? '';
     this.newProduct.price = this.createAdsForm.get('price')?.value ?? 0;
+    this.newProduct.id = this.productsService.generateUniqueId()
 
 
     this.updateUserAdsSubscription = this.productsService.updateUserAds(this.newProduct, this.userId).subscribe(
