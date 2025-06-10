@@ -2,7 +2,7 @@ import { ErrorService } from '../shared/httpError/error.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { BehaviorSubject, catchError, of, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, of, switchMap, tap, throwError } from 'rxjs';
 import { Product } from '../types/product';
 import { NewProduct } from '../types/new-product';
 import { UserAds } from '../types/user-ads';
@@ -12,8 +12,6 @@ import { UserAds } from '../types/user-ads';
 })
 
 export class ProductsService {
-  // private products: Product[] = [];
-  // private productsLoaded = false;
 
   constructor(private http: HttpClient, private errorService: ErrorService) { }
 
@@ -24,18 +22,12 @@ export class ProductsService {
   products$ = this.productsSubject.asObservable();
 
 
-  count = 0;
-
-  //
-
   fetchProducts(): Observable<Product[]> {
 
     return this.http.get<Product[]>(this.urlProducts).pipe(
       tap((products) => {
-        this.count++
         this.setProducts(products);
         this.getAllUsersAds().subscribe();
-        console.log(this.count);
       }),
       catchError(this.errorHandler.bind(this))
     );
@@ -51,25 +43,31 @@ export class ProductsService {
     return throwError(() => error.message);
   }
 
-
   updateUserAds(newProduct: Product, userId: string): Observable<UserAds> {
 
-    const updatedAd: UserAds = {
-      userId: userId,
-      totalAds: [newProduct]
-    };
+    return this.getUserAds(userId).pipe(
 
-    return this.http.put<UserAds>(`${this.urlUserAds}/${userId}`, updatedAd).pipe(
-      tap( _ => {
-        const currentProducts = this.getCurrentProducts();
-        this.setProducts([...currentProducts, newProduct]);
+      switchMap(userAds => {
+        const updatedAd: UserAds = {
+          userId: userId,
+          totalAds: [...userAds.totalAds, newProduct]
+        };
+
+        return this.http.put<UserAds>(`${this.urlUserAds}/${userId}`, updatedAd).pipe(
+          tap(() => {
+            const currentProducts = this.getCurrentProducts();
+            this.setProducts([...currentProducts, newProduct]);
+          })
+        );
+
       })
-    )
-
+    );
   }
 
-   getUserAds(userId: string): Observable<UserAds[]> {
-    return this.http.get<UserAds[]>(`${this.urlUserAds}/${userId}`)
+
+
+  getUserAds(userId: string): Observable<UserAds> {
+    return this.http.get<UserAds>(`${this.urlUserAds}/${userId}`)
   }
 
 
