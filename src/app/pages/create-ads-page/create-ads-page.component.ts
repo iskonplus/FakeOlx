@@ -25,7 +25,8 @@ export class CreateAdsPageComponent implements OnInit {
   };
   categories: string[] = [];
   isSpinnerActive = false;
-  updateUserAdsSubscription?: Subscription;
+  updateUserAdsSubscription!: Subscription;
+  activeUserSubscription!: Subscription;
   userId!: string;
 
 
@@ -37,7 +38,7 @@ export class CreateAdsPageComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.categoriesService.categoriesData.forEach(el => this.categories.push(el.heading))
-    this.loginService.activeUser$.forEach(state => state.isLoggedIn && (this.userId = state.user.id));
+    this.activeUserSubscription = this.loginService.activeUser$.subscribe(state => state.isLoggedIn && (this.userId = state.user.id));
 
   }
 
@@ -57,12 +58,12 @@ export class CreateAdsPageComponent implements OnInit {
     this.newProduct.image = this.createAdsForm.get('imageUrl')?.value ?? '';
     this.newProduct.category = this.createAdsForm.get('category')?.value ?? '';
     this.newProduct.price = this.createAdsForm.get('price')?.value ?? 0;
-    this.newProduct.id = this.productsService.generateUniqueId()
+    this.newProduct.id = this.productsService.generateUniqueId();
 
 
     this.updateUserAdsSubscription = this.productsService.updateUserAds(this.newProduct, this.userId).subscribe(
       {
-        next: _ => {this.router.navigate(['/']), console.log(_)},
+        next: _ => this.router.navigate(['/']),
         error: err => { this.errorService.handleError(err.message), this.isSpinnerActive = false },
         complete: () => this.isSpinnerActive = false
       }
@@ -73,8 +74,8 @@ export class CreateAdsPageComponent implements OnInit {
 
 
   ngOnDestroy(): void {
-    this.updateUserAdsSubscription?.unsubscribe();
-
+    this.updateUserAdsSubscription!.unsubscribe();
+    this.activeUserSubscription!.unsubscribe();
   }
 
 }
