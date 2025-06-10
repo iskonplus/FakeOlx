@@ -52,17 +52,17 @@ export class CreateAdsPageComponent implements OnInit {
   submit() {
 
     this.isSpinnerActive = true;
-
     this.newProduct.title = this.createAdsForm.get('title')?.value ?? '';
     this.newProduct.description = this.createAdsForm.get('description')?.value ?? '';
     this.newProduct.image = this.createAdsForm.get('imageUrl')?.value ?? '';
     this.newProduct.category = this.createAdsForm.get('category')?.value ?? '';
     this.newProduct.price = this.createAdsForm.get('price')?.value ?? 0;
+    this.newProduct.id = this.productsService.generateUniqueId()
 
 
     this.updateUserAdsSubscription = this.productsService.updateUserAds(this.newProduct, this.userId).subscribe(
       {
-        next: _ => this.router.navigate(['/']),
+        next: _ => {this.router.navigate(['/']), console.log(_)},
         error: err => { this.errorService.handleError(err.message), this.isSpinnerActive = false },
         complete: () => this.isSpinnerActive = false
       }

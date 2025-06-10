@@ -2,7 +2,7 @@ import { ErrorService } from '../shared/httpError/error.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { BehaviorSubject, catchError, of, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, of, switchMap, tap, throwError } from 'rxjs';
 import { Product } from '../types/product';
 import { NewProduct } from '../types/new-product';
 import { UserAds } from '../types/user-ads';
@@ -12,8 +12,6 @@ import { UserAds } from '../types/user-ads';
 })
 
 export class ProductsService {
-  // private products: Product[] = [];
-  private productsLoaded = false;
 
   constructor(private http: HttpClient, private errorService: ErrorService) { }
 
@@ -24,18 +22,12 @@ export class ProductsService {
   products$ = this.productsSubject.asObservable();
 
 
-  count = 0;
-
-  //
-
   fetchProducts(): Observable<Product[]> {
 
     return this.http.get<Product[]>(this.urlProducts).pipe(
       tap((products) => {
-        this.count++
         this.setProducts(products);
-        this.getUsersAds().subscribe();
-        console.log(this.count);
+        this.getAllUsersAds().subscribe();
       }),
       catchError(this.errorHandler.bind(this))
     );
@@ -51,48 +43,40 @@ export class ProductsService {
     return throwError(() => error.message);
   }
 
-  // getCachedProducts(): Product[] {
-  //   // return this.products;
-  // }
-
-
-  // createProduct(product: NewProduct, userId: string): Observable<Product> {
-  //   return this.http.post<Product>(this.urlProducts, product).pipe(
-  //     tap(prod => {
-  //       this.products.push(prod);
-  //       this.updateUserAds(prod, userId).subscribe(data=>console.log(data))
-  //     })
-  //   )
-
-  // }
-
   updateUserAds(newProduct: Product, userId: string): Observable<UserAds> {
-    // const newProdId = this.products[this.products.length - 1].id + 1
-    // console.log(newProdId);
-    // newProduct.id = newProdId;
 
-    const updatedAd: UserAds = {
-      userId: userId,
-      totalAds: [newProduct]
-    };
+    return this.getUserAds(userId).pipe(
 
+      switchMap(userAds => {
+        const updatedAd: UserAds = {
+          userId: userId,
+          totalAds: [...userAds.totalAds, newProduct]
+        };
 
+        return this.http.put<UserAds>(`${this.urlUserAds}/${userId}`, updatedAd).pipe(
+          tap(() => {
+            const currentProducts = this.getCurrentProducts();
+            this.setProducts([...currentProducts, newProduct]);
+          })
+        );
 
-    return this.http.put<UserAds>(`${this.urlUserAds}/${userId}`, updatedAd).pipe(
-      tap((data) => {
-        console.log('Product updated successfully', data);
-        // this.products.push(newProduct);
       })
-    )
-
+    );
   }
 
 
-  getUsersAds(): Observable<UserAds[]> {
+
+  getUserAds(userId: string): Observable<UserAds> {
+    return this.http.get<UserAds>(`${this.urlUserAds}/${userId}`)
+  }
+
+
+
+  getAllUsersAds(): Observable<UserAds[]> {
     return this.http.get<UserAds[]>(this.urlUserAds)
       .pipe(
         tap(data => {
-          const currentProducts = this.productsSubject.getValue();
+          const currentProducts = this.getCurrentProducts();
           const usersAdsProducts: Product[] = [];
           data.forEach(userAds => {
             userAds.totalAds.forEach(userAd => usersAdsProducts.push(userAd as Product))
@@ -100,6 +84,23 @@ export class ProductsService {
           this.setProducts([...currentProducts, ...usersAdsProducts]);
         })
       )
+  }
+
+  generateUniqueId(): number {
+    const currentProducts = this.getCurrentProducts();
+    const existingIds = currentProducts.map(product => product.id);
+    let newId = 1;
+
+    while (existingIds.includes(newId)) {
+      newId++;
+    }
+
+    return newId;
+  }
+
+
+  getCurrentProducts(): Product[] {
+    return this.productsSubject.getValue();
   }
 
 }
