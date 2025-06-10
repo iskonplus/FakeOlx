@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject, catchError, of, switchMap, tap, throwError } from 'rxjs';
 import { Product } from '../types/product';
-import { NewProduct } from '../types/new-product';
+// import { NewProduct } from '../types/new-product';
 import { UserAds } from '../types/user-ads';
 
 @Injectable({
@@ -46,7 +46,6 @@ export class ProductsService {
   updateUserAds(newProduct: Product, userId: string): Observable<UserAds> {
 
     return this.getUserAds(userId).pipe(
-
       switchMap(userAds => {
         const updatedAd: UserAds = {
           userId: userId,
