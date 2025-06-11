@@ -1,3 +1,4 @@
+import { ErrorService } from './../../shared/httpError/error.service';
 import { forkJoin, Subscription } from 'rxjs';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -28,7 +29,12 @@ export class LoginComponent {
   @Output() showSpinner = new EventEmitter<void>();
 
 
-  constructor(private loginService: LoginService, private router: Router, private cardService: CardService, private productService: ProductsService) { }
+  constructor(private loginService: LoginService,
+    private router: Router,
+    private cardService: CardService,
+    private productService: ProductsService,
+    private errorService: ErrorService
+  ) { }
 
 
   loginForm = new FormGroup({
@@ -55,20 +61,23 @@ export class LoginComponent {
   }
 
 
-handleLoginSuccess(user: ActiveUser) {
-  this.loginService.setUser(user);
+  handleLoginSuccess(user: ActiveUser) {
+    this.loginService.setUser(user);
 
-  const userAds$ = this.productService.getUserAds(user.id);
-  const userCart$ = this.cardService.getUserCart(user.id);
+    const userAds$ = this.productService.getUserAds(user.id);
+    const userCart$ = this.cardService.getUserCart(user.id);
 
-  this.loginDataSubscription = forkJoin([userAds$, userCart$]).subscribe(([userAds, userCart]) => {
-    this.productService.setUserAds(userAds);
-    this.cardService.setUserCart(userCart);
+    this.loginDataSubscription = forkJoin([userAds$, userCart$]).subscribe({
+      next: ([userAds, userCart]) => {
+        this.productService.setUserAds(userAds);
+        this.cardService.setUserCart(userCart);
+        this.router.navigate(['/']);
+        this.loginForm.reset();
+      },
+      error: (err) => this.errorService.handleError(err.message)
 
-    this.router.navigate(['/']);
-    this.loginForm.reset();
-  });
-}
+    });
+  }
 
   ngOnDestroy(): void {
     this.loginSubscription?.unsubscribe();
