@@ -21,7 +21,7 @@ export class ProductsService {
   private productsSubject = new BehaviorSubject<Product[]>([]);
   products$ = this.productsSubject.asObservable();
 
-  private userAdsSubject = new BehaviorSubject<UserAds[]>([]);
+  private userAdsSubject = new BehaviorSubject<UserAds>({ userId: '', totalAds: [] });
   userAds$ = this.userAdsSubject.asObservable();
 
 
@@ -51,17 +51,21 @@ export class ProductsService {
     // return this.getUserAds(userId).pipe(
     // switchMap(userAds => {
 
-        const currentUserAds = this.userAdsSubject.getValue();
+    const currentUserAds = this.userAdsSubject.getValue();
+
         const updatedAd: UserAds = {
           userId: userId,
-          totalAds: [...currentUserAds, newProduct]
-        };
+          totalAds: [...currentUserAds.totalAds, newProduct]
+    };
+
+    console.log(updatedAd);
 
         return this.http.put<UserAds>(`${this.urlUserAds}/${userId}`, updatedAd).pipe(
           tap(() => {
             const currentProducts = this.getCurrentProducts();
+
             this.setProducts([...currentProducts, newProduct]);
-            this.setUserAds([...currentUserAds, updatedAd]);
+            // this.setUserAds([...currentUserAds.totalAds, updatedAd]);
           })
         );
 
@@ -72,13 +76,11 @@ export class ProductsService {
 
 
   getUserAds(userId: string): Observable<UserAds> {
-    return this.http.get<UserAds>(`${this.urlUserAds}/${userId}`).pipe(
-      tap(userAds => this.setUserAds([userAds]))
-    )
+    return this.http.get<UserAds>(`${this.urlUserAds}/${userId}`)
   }
 
 
-    setUserAds(userAds: UserAds[]): void {
+    setUserAds(userAds: UserAds): void {
     this.userAdsSubject.next(userAds);
   }
 
