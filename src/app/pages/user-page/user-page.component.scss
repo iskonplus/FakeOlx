@@ -1,9 +1,10 @@
 :host{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 60px 0px;
+  display: block;
+  max-width: 1270px;
+  margin: auto;
+  text-align: center;
+  position: relative;
+  margin-top: 40px;
 
   h2{
     margin-bottom: 30px;
@@ -22,7 +23,10 @@
     border-radius: 5px;
     background-color: #002F34;
     color: #ffffff;
-    margin-top: 30px;
+    position: absolute;
+    top: 15px;
+    left: 10px;
+
 
     mat-icon {
       margin-left: 20px;
@@ -33,6 +37,14 @@
   .btn-logout:hover {
     background-color: #ffffff;
     color: #002F34;
+  }
+
+  .wrapper_product{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px auto;
   }
 
 }

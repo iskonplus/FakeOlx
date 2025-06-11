@@ -1,9 +1,14 @@
 <ng-container *ngIf="activeUser$ | async as userState">
+
   <h2 *ngIf="userState.isLoggedIn">
-  Hello {{ userState.user.name }}!
-</h2>
+    Hello {{ userState.user.name | uppercase}}!
+  </h2>
+  <p>This is your active announcement!</p>
+  <app-products [userAdsId]="userAdsId"></app-products>
+
 </ng-container>
-<button type="submit"  class="btn-logout" (click)="logOut()">
+
+<button type="submit" class="btn-logout" (click)="logOut()">
   Log out
   <mat-icon>logout</mat-icon>
 </button>

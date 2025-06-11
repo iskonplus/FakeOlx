@@ -54,12 +54,12 @@ export class ProductsService {
       totalAds: [...currentUserAds.totalAds, newProduct]
     };
 
+    this.setUserAds(updatedAd);
+
     return this.http.put<UserAds>(`${this.urlUserAds}/${userId}`, updatedAd).pipe(
       tap(() => {
         const currentProducts = this.getCurrentProducts();
-
         this.setProducts([...currentProducts, newProduct]);
-        // this.setUserAds([...currentUserAds.totalAds, updatedAd]);
       })
     );
   }

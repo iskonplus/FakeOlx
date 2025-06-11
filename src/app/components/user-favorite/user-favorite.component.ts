@@ -24,7 +24,7 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.favoritesSubscription.unsubscribe();
+    this.favoritesSubscription?.unsubscribe();
   }
 
 }

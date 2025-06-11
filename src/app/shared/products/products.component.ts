@@ -8,6 +8,7 @@ import { Product } from '../../types/product';
 import { Subscription } from 'rxjs';
 import { ActiveUser } from '../../types/active-user';
 import { UserCart } from '../../types/user-cart';
+import { UserAds } from '../../types/user-ads';
 
 @Component({
   selector: 'app-products',
@@ -31,6 +32,7 @@ export class ProductsComponent implements OnInit {
   @Input() term = "";
   @Input() favorites!: number[];
   @Input() userCart: UserCart | null = null;
+  @Input() userAdsId: number[]| undefined;
 
   constructor(private productsService: ProductsService, private cardService: CardService, private loginService: LoginService) { }
 
@@ -46,7 +48,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ((changes['favorites'] || changes['userCart']) && this.products) {
+    if ((changes['favorites'] || changes['userCart'] || changes['userAdsId']) && this.products) {
       this.applyFilters();
     }
   }
@@ -63,8 +65,11 @@ export class ProductsComponent implements OnInit {
     } else if (this.userCart) {
       this.products = this.allProducts.filter(product => {
         return this.userCart?.totalProductsId.includes(product.id.toString());
-      }
-      )
+      })
+    } else if (this.userAdsId) {
+      this.products = this.allProducts.filter(product => {
+        return this.userAdsId?.includes(product.id);
+      });
     } else {
       this.products = this.allProducts;
     }

@@ -1,4 +1,6 @@
+import { Product } from "./product";
+
 export interface UserAds {
-  totalAds: object[];
+  totalAds: Product[];
   userId: string;
 }
