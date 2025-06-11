@@ -2,7 +2,7 @@ import { ErrorService } from '../shared/httpError/error.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { BehaviorSubject, catchError, of, switchMap, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, of, Subject, switchMap, tap, throwError } from 'rxjs';
 import { Product } from '../types/product';
 // import { NewProduct } from '../types/new-product';
 import { UserAds } from '../types/user-ads';
@@ -20,6 +20,9 @@ export class ProductsService {
 
   private productsSubject = new BehaviorSubject<Product[]>([]);
   products$ = this.productsSubject.asObservable();
+
+  private userAdsSubject = new BehaviorSubject<UserAds[]>([]);
+  userAds$ = this.userAdsSubject.asObservable();
 
 
   fetchProducts(): Observable<Product[]> {
@@ -45,28 +48,38 @@ export class ProductsService {
 
   updateUserAds(newProduct: Product, userId: string): Observable<UserAds> {
 
-    return this.getUserAds(userId).pipe(
-      switchMap(userAds => {
+    // return this.getUserAds(userId).pipe(
+    // switchMap(userAds => {
+
+        const currentUserAds = this.userAdsSubject.getValue();
         const updatedAd: UserAds = {
           userId: userId,
-          totalAds: [...userAds.totalAds, newProduct]
+          totalAds: [...currentUserAds, newProduct]
         };
 
         return this.http.put<UserAds>(`${this.urlUserAds}/${userId}`, updatedAd).pipe(
           tap(() => {
             const currentProducts = this.getCurrentProducts();
             this.setProducts([...currentProducts, newProduct]);
+            this.setUserAds([...currentUserAds, updatedAd]);
           })
         );
 
-      })
-    );
+      // })
+    // );
   }
 
 
 
   getUserAds(userId: string): Observable<UserAds> {
-    return this.http.get<UserAds>(`${this.urlUserAds}/${userId}`)
+    return this.http.get<UserAds>(`${this.urlUserAds}/${userId}`).pipe(
+      tap(userAds => this.setUserAds([userAds]))
+    )
+  }
+
+
+    setUserAds(userAds: UserAds[]): void {
+    this.userAdsSubject.next(userAds);
   }
 
 

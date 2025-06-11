@@ -23,6 +23,7 @@ export class LoginComponent {
 
   loginSubscription?: Subscription;
   userCartSubscription?: Subscription;
+  getUserAdsSubscription?: Subscription;
 
   @Output() loginFailed = new EventEmitter<string>();
   @Output() showSpinner = new EventEmitter<void>();
@@ -57,6 +58,7 @@ export class LoginComponent {
 
   handleLoginSuccess(user: ActiveUser) {
     this.loginService.setUser(user);
+    this.getUserAdsSubscription = this.productService.getUserAds(user.id).subscribe();
     this.userCartSubscription = this.cardService.getUserCart(user.id).subscribe(cardInCart => {
       this.cardService.setUserCart(cardInCart);
       this.router.navigate(['/']);
@@ -67,6 +69,7 @@ export class LoginComponent {
   ngOnDestroy(): void {
     this.loginSubscription?.unsubscribe();
     this.userCartSubscription?.unsubscribe();
+    this.getUserAdsSubscription?.unsubscribe();
   }
 
 
