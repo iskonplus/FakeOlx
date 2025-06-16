@@ -12,7 +12,9 @@
 
 <mat-dialog-actions>
   <ng-container *ngIf="isUserAd; else elseTemplate">
-    <button class="btn-delete">Delete</button>
+    <button class="btn-delete"
+    (click)="deleteProduct(product.id)"
+    >Delete</button>
   </ng-container>
 
   <ng-template #elseTemplate>

@@ -1,16 +1,18 @@
+import { ErrorService } from './../../shared/httpError/error.service';
+import { Subscription } from 'rxjs';
 import { ProductsService } from '../../services/products.service';
 import { CardService } from '../../shared/card/card.service';
 import { LoginService } from './../../pages/login-page/services/login.service';
 import { Product } from './../../types/product';
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
 })
-export class ProductDetailsComponent {
+export class ProductDetailsComponent implements OnInit, OnDestroy {
   isAddToCart = false;
   isUserLogged = false;
   userId!: string;
@@ -18,18 +20,22 @@ export class ProductDetailsComponent {
   isDisabled = false;
   currentUserAdsId?: number[];
   isUserAd = false;
+  deleteUserAdSubscription?: Subscription;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public product: Product,
     private loginService: LoginService,
     private cardService: CardService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private dialogRef: MatDialogRef<ProductDetailsComponent>,
+    private errorService: ErrorService
   ) { }
 
   ngOnInit(): void {
     this.loginService.activeUser$.forEach(state => {
       if (state.isLoggedIn) {
         this.isUserLogged = state.isLoggedIn;
+        this.userId = state.user.id;
       }
     });
 
@@ -40,8 +46,7 @@ export class ProductDetailsComponent {
 
     if (this.isUserLogged) {
       this.currentUserAdsId = this.productsService.getCurrentUserAdsId();
-      this.isUserAd = this.currentUserAdsId.includes(this.product.id)
-      console.log("is it ad of user: ", this.isUserAd);
+      this.isUserAd = this.currentUserAdsId.includes(this.product.id);
     }
   }
 
@@ -49,6 +54,18 @@ export class ProductDetailsComponent {
     this.isDisabled = true;
     this.isAddToCart = !this.isAddToCart;
     this.cardService.toggleProductInCart(prodId);
+  }
+
+  deleteProduct(prodId: number) {
+    this.deleteUserAdSubscription = this.productsService.deleteUserAd(prodId, this.userId).subscribe({
+      next: () => this.dialogRef.close(),
+      error: (err) => this.errorService.handleError(err.message)
+    })
+  }
+
+
+  ngOnDestroy() {
+    this.deleteUserAdSubscription?.unsubscribe();
   }
 
 }

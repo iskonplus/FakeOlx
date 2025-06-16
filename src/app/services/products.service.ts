@@ -64,6 +64,23 @@ export class ProductsService {
     );
   }
 
+  deleteUserAd( adId : number, userId: string): Observable<UserAds> {
+    const currentUserAds = this.userAdsSubject.getValue();
+    const updatedAd: UserAds = {
+      userId: userId,
+      totalAds: [...currentUserAds.totalAds.filter(ad => ad.id !== adId)]
+    };
+
+    this.setUserAds(updatedAd);
+
+    return this.http.put<UserAds>(`${this.urlUserAds}/${userId}`, updatedAd).pipe(
+      tap(() => {
+        const updateProducts = this.getCurrentProducts().filter(product => product.id !== adId);
+        this.setProducts([...updateProducts]);
+      })
+    );
+  }
+
 
 
   getUserAds(userId: string): Observable<UserAds> {
