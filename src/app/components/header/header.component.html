@@ -10,21 +10,22 @@
             <a [routerLink]="['/user', userState.user.id, 'cart']">
               <mat-icon>shopping_cart_checkout</mat-icon>
               Cart</a>
-              <span *ngIf="totalUserCart">{{totalUserCart}}</span>
+            <span *ngIf="totalUserCart">{{totalUserCart}}</span>
           </li>
           <li *ngIf="userState.isLoggedIn" class="user-actions">
-            <a [routerLink]="['/user', userState.user.id, 'favorites']"><mat-icon class="iconFavorite">favorite_border</mat-icon></a>
+            <a [routerLink]="['/user', userState.user.id, 'favorites']"><mat-icon
+                class="iconFavorite">favorite_border</mat-icon></a>
             <span *ngIf="totalFavorites>0">{{totalFavorites}}</span>
           </li>
 
-            <ng-container *ngIf="userState?.isLoggedIn; else loggedOut">
-              <li *ngIf="userState.isLoggedIn">
-                <a [routerLink]="['/user', userState.user.id]">
-                  <mat-icon>perm_identity</mat-icon>
-                  {{ userState.user.name }}
-                </a>
-              </li>
-            </ng-container>
+          <ng-container *ngIf="userState?.isLoggedIn; else loggedOut">
+            <li *ngIf="userState.isLoggedIn">
+              <a [routerLink]="['/user', userState.user.id]">
+                <mat-icon>perm_identity</mat-icon>
+                {{ userState.user.name }}
+              </a>
+            </li>
+          </ng-container>
 
           <ng-template #loggedOut>
             <li>

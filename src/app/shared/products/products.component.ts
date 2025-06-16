@@ -8,7 +8,7 @@ import { Product } from '../../types/product';
 import { Subscription } from 'rxjs';
 import { ActiveUser } from '../../types/active-user';
 import { UserCart } from '../../types/user-cart';
-import { UserAds } from '../../types/user-ads';
+
 
 @Component({
   selector: 'app-products',
@@ -73,6 +73,7 @@ export class ProductsComponent implements OnInit {
     } else {
       this.products = this.allProducts;
     }
+
   }
 
   showMoreDetails(product: Product) {

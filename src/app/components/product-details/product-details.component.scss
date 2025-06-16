@@ -34,9 +34,19 @@ mat-dialog-actions {
     background-color: #ffffff;
   }
 
+  .btn-delete {
+    border: 6px solid #cc3113;
+    background-color: #cc3113;
+  }
+
+  .btn-delete:hover {
+    color:  #cc3113;
+    background-color: #ffffff;
+  }
+
   .isDisabled {
-  opacity: 0.5;
-  pointer-events: none;
+    opacity: 0.5;
+    pointer-events: none;
   }
 
 }

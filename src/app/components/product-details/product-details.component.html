@@ -11,7 +11,17 @@
 
 
 <mat-dialog-actions>
-  <button *ngIf="isUserLogged" [ngClass]="{ 'isDisabled': isDisabled }"
-    (click)="toggleCartItem(product.id)">{{!isAddToCart? 'Add to cart' : 'Remove cart'}}</button>
+  <ng-container *ngIf="isUserAd; else elseTemplate">
+    <button class="btn-delete">Delete</button>
+  </ng-container>
+
+  <ng-template #elseTemplate>
+    <button *ngIf="isUserLogged" [ngClass]="{ 'isDisabled': isDisabled }"
+      (click)="toggleCartItem(product.id)">{{!isAddToCart? 'Add to cart' : 'Remove cart'}}
+    </button>
+  </ng-template>
+
+
+
   <button mat-dialog-close>Close</button>
 </mat-dialog-actions>

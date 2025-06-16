@@ -26,7 +26,7 @@ export class LoginService {
 
 
   userLogin(userData: User): Observable<ActiveUser[]> {
-    return this.http.get<ActiveUser[]>(`${this.baseUrl}/user?email=${userData.email}&password=${userData.password}`)
+    return this.http.get<ActiveUser[]>(`${this.baseUrl}/users?email=${userData.email}&password=${userData.password}`)
   }
 
 
@@ -36,7 +36,7 @@ export class LoginService {
         'Content-Type': 'application/json'
       }),
     };
-    return this.http.post<ActiveUser>(this.baseUrl + '/user', userData, httpOptions);
+    return this.http.post<ActiveUser>(this.baseUrl + '/users', userData, httpOptions);
   }
 
   createUserCart(userId: string) {

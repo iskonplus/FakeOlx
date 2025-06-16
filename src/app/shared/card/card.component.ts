@@ -19,17 +19,18 @@ export class CardComponent {
 
   isCardLike: boolean = false;
   typeFavoriteIcon = 'favorite_border';
-
-  private favoriteSub!: Subscription;
-  private userSub!: Subscription;
-  private userCartSubscription!: Subscription;
+  isUserAd = false;
   userId: string = '';
   isCardInCart = false;
   userCart!: UserCart;
 
+
+  private favoriteSub!: Subscription;
+  private userSub!: Subscription;
+
   constructor(
     private cardService: CardService,
-    private loginService: LoginService
+    private loginService: LoginService,
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +46,7 @@ export class CardComponent {
       this.isCardLike = favIds.includes(this.product.id);
       this.typeFavoriteIcon = this.isCardLike ? 'favorite' : 'favorite_border';
     });
+
 
   }
 

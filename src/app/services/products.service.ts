@@ -108,4 +108,8 @@ export class ProductsService {
     return this.productsSubject.getValue();
   }
 
+  getCurrentUserAdsId():number[] {
+    return this.userAdsSubject.getValue().totalAds.map(ad => ad.id);
+  }
+
 }
