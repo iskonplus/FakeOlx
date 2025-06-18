@@ -19,9 +19,10 @@
           </li>
 
           <ng-container *ngIf="userState?.isLoggedIn; else loggedOut">
-            <li *ngIf="userState.isLoggedIn">
+            <li *ngIf="userState.isLoggedIn" class="user-actions">
               <a [routerLink]="['/user', userState.user.id]">
                 <mat-icon>perm_identity</mat-icon>
+                <span *ngIf="totalOwnAds>0">{{totalOwnAds}}</span>
                 {{ userState.user.name }}
               </a>
             </li>
