@@ -18,6 +18,7 @@ export class UserPageComponent implements OnInit, OnDestroy{
   ) { }
 
   activeUser$ = this.loginService.activeUser$;
+  userAds$ = this.productsService.userAds$;
   userId?: string | null;
   userAdsId: number[] = [];
   userAdsSubscription?: Subscription;

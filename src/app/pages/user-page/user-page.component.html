@@ -3,7 +3,11 @@
   <h2 *ngIf="userState.isLoggedIn">
     Hello {{ userState.user.name | uppercase}}!
   </h2>
-  <p>This is your active announcement!</p>
+
+  <ng-container *ngIf="userAds$ | async as userAds">
+    <p *ngIf="userAds.totalAds.length>0">This is your active {{userAds.totalAds.length>1?"announcements":"announcement"}}!</p>
+  </ng-container>
+  
   <app-products [userAdsId]="userAdsId"></app-products>
 
 </ng-container>
