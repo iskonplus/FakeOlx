@@ -54,13 +54,18 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.isDisabled = true;
     this.isAddToCart = !this.isAddToCart;
     this.cardService.toggleProductInCart(prodId);
+    this.closeDetailsWindow();
   }
 
   deleteProduct(prodId: number) {
     this.deleteUserAdSubscription = this.productsService.deleteUserAd(prodId, this.userId).subscribe({
-      next: () => this.dialogRef.close(),
+      next: () => this.closeDetailsWindow(),
       error: (err) => this.errorService.handleError(err.message)
     })
+  }
+
+  closeDetailsWindow() {
+    this.dialogRef.close();
   }
 
 
