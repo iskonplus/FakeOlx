@@ -21,3 +21,11 @@
   Log out
   <mat-icon>logout</mat-icon>
 </button>
+
+<span class="del-user" tabindex="0"
+      matTooltip="You are going to delete your account"
+      matTooltipPosition="left"
+      (click)="deleteUser()"
+      >
+  <mat-icon>delete_forever</mat-icon>
+</span>

@@ -1,4 +1,4 @@
-:host{
+:host {
   display: block;
   max-width: 1270px;
   margin: auto;
@@ -6,7 +6,7 @@
   position: relative;
   margin-top: 40px;
 
-  h2{
+  h2 {
     margin-bottom: 30px;
   }
 
@@ -39,12 +39,36 @@
     color: #002F34;
   }
 
-  .wrapper_product{
+  .wrapper_product {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 30px auto;
+  }
+
+  .del-user {
+    color: #cccccc;
+    cursor: pointer;
+    transition: .3s;
+    border: 1px solid #cccccc;
+    border-radius: 50%;
+    display: flex;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+
+    mat-icon {
+      margin: auto;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+    }
+  }
+
+  .del-user:hover {
+    color: #cc3113;
+    border-color: #cc3113;
   }
 
 }

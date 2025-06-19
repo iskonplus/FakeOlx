@@ -35,6 +35,16 @@ export class UserPageComponent implements OnInit, OnDestroy{
     this.router.navigate(['/']);
   }
 
+  deleteUser() {
+    console.log("this user will be delete", this.userId);
+    // if (this.userId) {
+    //   this.productsService.deleteUserAds(this.userId).subscribe(() => {
+    //     this.loginService.clearUser();
+    //     this.router.navigate(['/']);
+    //   });
+    // }
+  }
+
 
   ngOnDestroy(): void {
     this.userAdsSubscription?.unsubscribe();

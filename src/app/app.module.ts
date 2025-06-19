@@ -36,7 +36,8 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { SharedModule } from './shared/shared.module';
 import { UserFavoriteComponent } from './components/user-favorite/user-favorite.component';
 import { UserCartComponent } from './components/user-cart/user-cart.component';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -84,6 +85,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatProgressSpinnerModule,
     SharedModule,
     MatSelectModule,
+    MatTooltipModule
 
   ],
   providers: [
