@@ -5,9 +5,14 @@
   </h2>
 
   <ng-container *ngIf="userAds$ | async as userAds">
-    <p *ngIf="userAds.totalAds.length>0">This is your active {{userAds.totalAds.length>1?"announcements":"announcement"}}!</p>
+    <p *ngIf="userAds.totalAds.length>0; else noAds">This is your active
+      {{userAds.totalAds.length>1?"announcements":"announcement"}}!</p>
   </ng-container>
-  
+
+  <ng-template #noAds>
+    <p>You have no active announcements yet.</p>
+  </ng-template>
+
   <app-products [userAdsId]="userAdsId"></app-products>
 
 </ng-container>

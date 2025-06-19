@@ -1,8 +1,8 @@
 <h2>Add your ads</h2>
 <form class="form flex flex-center" [formGroup]="createAdsForm">
   @if(isSpinnerActive){
-<mat-spinner class="spinner"></mat-spinner>
-}
+  <mat-spinner class="spinner"></mat-spinner>
+  }
 
   <mat-form-field class="form-field" appearance="fill">
     <mat-label>Title</mat-label>
@@ -10,13 +10,13 @@
     <mat-error *ngIf="createAdsForm.get('title')?.hasError('required')">Title is required</mat-error>
   </mat-form-field>
 
-<mat-form-field>
-  <mat-label>Select Category</mat-label>
-  <mat-select formControlName="category">
-    <mat-option *ngFor="let cat of categories" [value]="cat">{{cat}}</mat-option>
-    <mat-error *ngIf="createAdsForm.get('category')?.hasError('required')">Category is required</mat-error>
-  </mat-select>
-</mat-form-field>
+  <mat-form-field>
+    <mat-label>Select Category</mat-label>
+    <mat-select formControlName="category">
+      <mat-option *ngFor="let cat of categories" [value]="cat">{{cat}}</mat-option>
+      <mat-error *ngIf="createAdsForm.get('category')?.hasError('required')">Category is required</mat-error>
+    </mat-select>
+  </mat-form-field>
 
   <mat-form-field class="form-field" appearance="fill">
     <mat-label>Description</mat-label>
@@ -45,11 +45,8 @@
     <img [src]="createAdsForm.get('imageUrl')?.value || 'assets/Image-not-found.png'" alt="Preview" />
   </div>
 
-  <button type="submit" class="btn-submit"
-  (click)="submit()"
-  [disabled]="createAdsForm.invalid"
-  >
-    add ads
+  <button type="submit" class="btn-submit" (click)="submit()" [disabled]="createAdsForm.invalid">
+    Post Ad
     <mat-icon>add</mat-icon>
   </button>
 </form>
