@@ -13,6 +13,10 @@
     <p>You have no active announcements yet.</p>
   </ng-template>
 
+  @if(isSpinnerActive){
+    <mat-progress-bar mode="buffer" class="spinner"></mat-progress-bar>
+  }
+
   <app-products [userAdsId]="userAdsId"></app-products>
 
 </ng-container>
@@ -22,10 +26,7 @@
   <mat-icon>logout</mat-icon>
 </button>
 
-<span class="del-user" tabindex="0"
-      matTooltip="You are going to delete your account"
-      matTooltipPosition="left"
-      (click)="deleteUser()"
-      >
+<span class="del-user" tabindex="0" matTooltip="You are going to delete your account" matTooltipPosition="left"
+  (click)="deleteUser()">
   <mat-icon>delete_forever</mat-icon>
 </span>

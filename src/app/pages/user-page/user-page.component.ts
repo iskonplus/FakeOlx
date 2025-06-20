@@ -25,6 +25,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
   userAdsId: number[] = [];
   userAdsSubscription?: Subscription;
   deleteUserSubscription?: Subscription;
+  isSpinnerActive = false;
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get("id");
@@ -39,10 +40,13 @@ export class UserPageComponent implements OnInit, OnDestroy {
   }
 
   deleteUser() {
+    this.isSpinnerActive = true;
+
     if (this.userId) {
       this.loginService.deleteUser(this.userId).subscribe({
         next: () => {
           this.loginService.clearUser();
+          this.isSpinnerActive = false;
           this.router.navigate(['/']);
         },
         error: (err) => this.errorService.handleError(err.message)

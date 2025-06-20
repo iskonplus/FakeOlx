@@ -38,6 +38,7 @@ import { UserFavoriteComponent } from './components/user-favorite/user-favorite.
 import { UserCartComponent } from './components/user-cart/user-cart.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 
@@ -85,7 +86,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressSpinnerModule,
     SharedModule,
     MatSelectModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressBarModule
 
   ],
   providers: [
