@@ -1,3 +1,4 @@
+import { ErrorService } from './../../shared/httpError/error.service';
 import { ProductsService } from './../../services/products.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoginService } from '../login-page/services/login.service';
@@ -9,12 +10,13 @@ import { Subscription } from 'rxjs';
   templateUrl: './user-page.component.html',
   styleUrl: './user-page.component.scss'
 })
-export class UserPageComponent implements OnInit, OnDestroy{
+export class UserPageComponent implements OnInit, OnDestroy {
   constructor(
     private loginService: LoginService,
     private router: Router,
     private route: ActivatedRoute,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private errorService: ErrorService
   ) { }
 
   activeUser$ = this.loginService.activeUser$;
@@ -22,6 +24,7 @@ export class UserPageComponent implements OnInit, OnDestroy{
   userId?: string | null;
   userAdsId: number[] = [];
   userAdsSubscription?: Subscription;
+  deleteUserSubscription?: Subscription;
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get("id");
@@ -36,18 +39,21 @@ export class UserPageComponent implements OnInit, OnDestroy{
   }
 
   deleteUser() {
-    console.log("this user will be delete", this.userId);
-    // if (this.userId) {
-    //   this.productsService.deleteUserAds(this.userId).subscribe(() => {
-    //     this.loginService.clearUser();
-    //     this.router.navigate(['/']);
-    //   });
-    // }
+    if (this.userId) {
+      this.loginService.deleteUser(this.userId).subscribe({
+        next: () => {
+          this.loginService.clearUser();
+          this.router.navigate(['/']);
+        },
+        error: (err) => this.errorService.handleError(err.message)
+      })
+    };
   }
 
 
   ngOnDestroy(): void {
     this.userAdsSubscription?.unsubscribe();
+    this.deleteUserSubscription?.unsubscribe();
   }
 
 }

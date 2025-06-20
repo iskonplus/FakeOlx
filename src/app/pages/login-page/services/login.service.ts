@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { User } from '../../../types/user';
 import { ActiveUser } from '../../../types/active-user';
 import { UserState } from '../../../types/user-state.model';
@@ -74,4 +74,19 @@ export class LoginService {
   }
 
 
+  deleteUser(userId: string): Observable<[void, void, void]> {
+    const favoritesRaw = localStorage.getItem('favoriteProducts');
+
+    if (favoritesRaw) {
+      const favorites = JSON.parse(favoritesRaw);
+      delete favorites[userId];
+      localStorage.setItem('favoriteProducts', JSON.stringify(favorites));
+    }
+
+    const deleteUser$ = this.http.delete<void>(`${this.baseUrl}/users/${userId}`);
+    const deleteCart$ = this.http.delete<void>(`${this.baseUrl}/user-cart/${userId}`);
+    const deleteAds$ = this.http.delete<void>(`${this.urlCreateUserProduct}/ads/${userId}`);
+
+    return forkJoin([deleteUser$, deleteCart$, deleteAds$]);
+  }
 }
