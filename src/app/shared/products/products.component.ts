@@ -8,6 +8,7 @@ import { Product } from '../../types/product';
 import { Subscription } from 'rxjs';
 import { ActiveUser } from '../../types/active-user';
 import { UserCart } from '../../types/user-cart';
+import { PageEvent } from '@angular/material/paginator';
 
 
 @Component({
@@ -24,6 +25,9 @@ export class ProductsComponent implements OnInit {
   isMoreInformation = false;
   isSpinnerActive = false;
   activeUser!: ActiveUser;
+  pageSize = 6;
+  currentPage = 0;
+  pagedProducts: Product[] = [];
 
   readonly dialog = inject(MatDialog);
   @ViewChild('showDetails') ProductDetailsComponent!: ProductDetailsComponent;
@@ -32,9 +36,21 @@ export class ProductsComponent implements OnInit {
   @Input() term = "";
   @Input() favorites!: number[];
   @Input() userCart: UserCart | null = null;
-  @Input() userAdsId: number[]| undefined;
+  @Input() userAdsId: number[] | undefined;
 
   constructor(private productsService: ProductsService, private cardService: CardService, private loginService: LoginService) { }
+
+  onPageChange(event: PageEvent): void {
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.updatePagedProducts();
+  }
+
+  private updatePagedProducts(): void {
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    this.pagedProducts = this.products.slice(start, end);
+  }
 
   ngOnInit() {
     this.isSpinnerActive = true;
@@ -73,6 +89,9 @@ export class ProductsComponent implements OnInit {
     } else {
       this.products = this.allProducts;
     }
+
+    this.currentPage = 0; // сброс страницы
+    this.updatePagedProducts();
 
   }
 

@@ -38,7 +38,8 @@ import { UserFavoriteComponent } from './components/user-favorite/user-favorite.
 import { UserCartComponent } from './components/user-cart/user-cart.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 
 
@@ -87,8 +88,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     SharedModule,
     MatSelectModule,
     MatTooltipModule,
-    MatProgressBarModule
-
+    MatProgressBarModule,
   ],
   providers: [
     provideClientHydration(),

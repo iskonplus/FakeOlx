@@ -9,9 +9,10 @@ import { MatCardModule } from '@angular/material/card';
 import { SearchComponent } from './search/search.component';
 import { FilterProductsPipe } from '../pipes/filter-products.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HttpErrorComponent } from './httpError/http-error.component';
 import { ReturnToMainComponent } from './return-to-main/return-to-main.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -43,7 +44,8 @@ import { ReturnToMainComponent } from './return-to-main/return-to-main.component
     MatCardModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-        MatProgressSpinnerModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule
 
   ]
 })

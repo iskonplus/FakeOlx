@@ -20,7 +20,7 @@ import { SharedModule } from '../../shared/shared.module';
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
-    SharedModule
+    SharedModule,
 
   ]
 })

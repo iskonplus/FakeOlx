@@ -4,8 +4,12 @@
   <mat-progress-bar mode="buffer" class="spinner"></mat-progress-bar>
   }
 
-  <app-card *ngFor="let product of products | filterProducts: term" [product]="product"
-    (showDetails)="showMoreDetails($event)">
+  <app-card *ngFor="let product of pagedProducts" [product]="product" (showDetails)="showMoreDetails($event)">
   </app-card>
 
+
 </div>
+
+<mat-paginator [length]="products.length" [pageSize]="6" [pageSizeOptions]="[4, 8, 12]"
+  (page)="onPageChange($event)">
+</mat-paginator>
