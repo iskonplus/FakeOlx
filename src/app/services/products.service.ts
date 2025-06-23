@@ -38,7 +38,7 @@ export class ProductsService {
   }
 
   setProducts(products: Product[]): void {
-    this.productsSubject.next(products);
+    this.productsSubject.next(products.reverse());
   }
 
   private errorHandler(error: HttpErrorResponse) {
