@@ -38,7 +38,7 @@ export class ProductsService {
   }
 
   setProducts(products: Product[]): void {
-    this.productsSubject.next(products.reverse());
+    this.productsSubject.next(products);
   }
 
   private errorHandler(error: HttpErrorResponse) {
@@ -59,12 +59,12 @@ export class ProductsService {
     return this.http.put<UserAds>(`${this.urlUserAds}/${userId}`, updatedAd).pipe(
       tap(() => {
         const currentProducts = this.getCurrentProducts();
-        this.setProducts([...currentProducts, newProduct]);
+        this.setProducts([ ...currentProducts, newProduct ]);
       })
     );
   }
 
-  deleteUserAd( adId : number, userId: string): Observable<UserAds> {
+  deleteUserAd(adId: number, userId: string): Observable<UserAds> {
     const currentUserAds = this.userAdsSubject.getValue();
     const updatedAd: UserAds = {
       userId: userId,
@@ -125,7 +125,7 @@ export class ProductsService {
     return this.productsSubject.getValue();
   }
 
-  getCurrentUserAdsId():number[] {
+  getCurrentUserAdsId(): number[] {
     return this.userAdsSubject.getValue().totalAds.map(ad => ad.id);
   }
 

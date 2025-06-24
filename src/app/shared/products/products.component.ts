@@ -61,7 +61,8 @@ export class ProductsComponent implements OnInit {
 
     this.productSubscription = this.productsService.products$
       .subscribe(response => {
-        this.allProducts = response;
+        const productsReverse = response.slice().reverse()
+        this.allProducts = productsReverse;
         this.applyFilters();
         this.isSpinnerActive = false;
       });
@@ -69,8 +70,6 @@ export class ProductsComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges, event: PageEvent): void {
     if ((changes['favorites'] || changes['userCart'] || changes['userAdsId']) && this.products) {
-      // this.onPageChange(event);
-      //  this.updatePagedProducts();
       this.applyFilters();
     }
   }
