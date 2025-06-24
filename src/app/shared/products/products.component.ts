@@ -25,9 +25,12 @@ export class ProductsComponent implements OnInit {
   isMoreInformation = false;
   isSpinnerActive = false;
   activeUser!: ActiveUser;
-  pageSize = 6;
+  pageSize = 8;
   currentPage = 0;
   pagedProducts: Product[] = [];
+  showFirstLastButtons = true;
+  hidePageSize = true;
+
 
   readonly dialog = inject(MatDialog);
   @ViewChild('showDetails') ProductDetailsComponent!: ProductDetailsComponent;
@@ -41,6 +44,7 @@ export class ProductsComponent implements OnInit {
   constructor(private productsService: ProductsService, private cardService: CardService, private loginService: LoginService) { }
 
   onPageChange(event: PageEvent): void {
+    console.log(event);
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
     this.updatePagedProducts();
@@ -63,8 +67,10 @@ export class ProductsComponent implements OnInit {
       });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges, event: PageEvent): void {
     if ((changes['favorites'] || changes['userCart'] || changes['userAdsId']) && this.products) {
+      // this.onPageChange(event);
+      //  this.updatePagedProducts();
       this.applyFilters();
     }
   }
@@ -88,9 +94,10 @@ export class ProductsComponent implements OnInit {
       });
     } else {
       this.products = this.allProducts;
+      this.pageSize = 12;
     }
 
-    this.currentPage = 0; // сброс страницы
+    this.currentPage = 0;
     this.updatePagedProducts();
 
   }

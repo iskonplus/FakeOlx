@@ -10,6 +10,11 @@
 
 </div>
 
-<mat-paginator [length]="products.length" [pageSize]="6" [pageSizeOptions]="[4, 8, 12]"
+<mat-paginator
+class="paginator"
+[length]="products.length"
+[pageSize]="pageSize"
+[hidePageSize]="hidePageSize"
+[showFirstLastButtons]="showFirstLastButtons"
   (page)="onPageChange($event)">
 </mat-paginator>

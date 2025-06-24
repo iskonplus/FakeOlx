@@ -1,18 +1,34 @@
-.wrapper_products {
-  width: 100%;
-  padding-bottom: 60px;
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
+:host {
+  display: block;
+  margin-bottom: 65px;
 
-  .spinner{
-   position: absolute;
-   left: 0;
-   top: 0;
-   z-index: 5;
+  .wrapper_products {
+    width: 100%;
+    padding-bottom: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+
+    .spinner {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 5;
+    }
+
+    app-card {
+      width: 25%;
+    }
   }
 
-  app-card{
-    width: 25%;
+
+  ::ng-deep .mat-mdc-paginator {
+    padding: 0 10px;
+    color: #002F34;
+    font-size: 14px;
+
+    .mat-mdc-paginator-range-actions {
+      margin: auto;
+    }
   }
 }
