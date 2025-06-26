@@ -1,3 +1,4 @@
+import { ErrorService } from './../httpError/error.service';
 import { LoginService } from './../../pages/login-page/services/login.service';
 import { CardService } from './../card/card.service';
 import { Component, inject, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
@@ -41,7 +42,9 @@ export class ProductsComponent implements OnInit {
   @Input() userCart: UserCart | null = null;
   @Input() userAdsId: number[] | undefined;
 
-  constructor(private productsService: ProductsService, private cardService: CardService, private loginService: LoginService) { }
+  constructor(private productsService: ProductsService, private cardService: CardService, private loginService: LoginService,
+    private errorService: ErrorService
+  ) { }
 
   onPageChange(event: PageEvent): void {
     console.log(event);
@@ -56,16 +59,18 @@ export class ProductsComponent implements OnInit {
     this.pagedProducts = this.products.slice(start, end);
   }
 
+
   ngOnInit() {
     this.isSpinnerActive = true;
 
     this.productSubscription = this.productsService.products$
-      .subscribe(response => {
-        const productsReverse = response.slice().reverse()
-        this.allProducts = productsReverse;
-        this.applyFilters();
-        this.isSpinnerActive = false;
-      });
+      .subscribe( response => {
+          const productsReverse = response.slice().reverse()
+          this.allProducts = productsReverse;
+          this.applyFilters();
+          this.isSpinnerActive = false;
+      }
+      );
   }
 
   ngOnChanges(changes: SimpleChanges, event: PageEvent): void {

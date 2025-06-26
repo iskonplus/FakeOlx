@@ -1,3 +1,4 @@
+import { CategoriesService } from './../../services/categories.service';
 import { LoginService } from './../../pages/login-page/services/login.service';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../types/product';
@@ -31,6 +32,7 @@ export class CardComponent {
   constructor(
     private cardService: CardService,
     private loginService: LoginService,
+    private categoriesService: CategoriesService
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +62,11 @@ export class CardComponent {
 
   showMoreDetails(): void {
     this.showDetails.emit(this.product);
+  }
+
+  openCategory(category: string, event: Event) {
+    event.preventDefault();
+    this.categoriesService.navigateToCategory(category);
   }
 
   ngOnDestroy(): void {

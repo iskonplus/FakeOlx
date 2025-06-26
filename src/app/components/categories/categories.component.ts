@@ -50,8 +50,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   openCategory(category: string) {
-    console.log(category);
-    this.router.navigate([`category/${category.split(' ').join('-').toLowerCase()}`]);
+    this.categoriesService.navigateToCategory(category);
   }
 
   ngOnDestroy(): void {

@@ -17,7 +17,7 @@
           <p class="price">{{product.price| currency}}</p>
           <p class="rating" *ngIf="isMoreInformation && product.rating"> <mat-icon>star_border</mat-icon>{{product.rating.rate}}</p>
         </div>
-        <a href="" class="category">{{product.category}}</a>
+        <a href="#" (click)="openCategory(product.category, $event)" class="category">{{product.category}}</a>
       </mat-card-actions>
 
     </mat-card-content>

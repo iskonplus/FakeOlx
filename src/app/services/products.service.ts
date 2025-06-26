@@ -13,7 +13,7 @@ import { UserAds } from '../types/user-ads';
 
 export class ProductsService {
 
-  constructor(private http: HttpClient, private errorService: ErrorService) { }
+  constructor(private http: HttpClient, private errorService: ErrorService ) { }
 
   urlProducts = 'https://fakestoreapi.com/products';
   urlUserAds = 'https://682896b46075e87073a44738.mockapi.io/notOlx/ads';
