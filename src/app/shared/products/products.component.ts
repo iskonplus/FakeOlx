@@ -1,4 +1,3 @@
-import { ErrorService } from './../httpError/error.service';
 import { LoginService } from './../../pages/login-page/services/login.service';
 import { CardService } from './../card/card.service';
 import { Component, inject, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
@@ -43,38 +42,30 @@ export class ProductsComponent implements OnInit {
   @Input() userAdsId: number[] | undefined;
 
   constructor(private productsService: ProductsService, private cardService: CardService, private loginService: LoginService,
-    private errorService: ErrorService
   ) { }
-
-  onPageChange(event: PageEvent): void {
-    console.log(event);
-    this.pageSize = event.pageSize;
-    this.currentPage = event.pageIndex;
-    this.updatePagedProducts();
-  }
-
-  private updatePagedProducts(): void {
-    const start = this.currentPage * this.pageSize;
-    const end = start + this.pageSize;
-    this.pagedProducts = this.products.slice(start, end);
-  }
 
 
   ngOnInit() {
     this.isSpinnerActive = true;
 
     this.productSubscription = this.productsService.products$
-      .subscribe( response => {
-          const productsReverse = response.slice().reverse()
-          this.allProducts = productsReverse;
-          this.applyFilters();
-          this.isSpinnerActive = false;
+      .subscribe(response => {
+        // const productsReverse = response.slice().reverse()
+        const productsReverse = response
+        this.allProducts = productsReverse;
+        this.applyFilters();
+        this.isSpinnerActive = false;
       }
       );
   }
 
-  ngOnChanges(changes: SimpleChanges, event: PageEvent): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if ((changes['favorites'] || changes['userCart'] || changes['userAdsId']) && this.products) {
+      // if (this.currentPage > 0 && this.pagedProducts.length === 0) {
+      //   this.currentPage--;
+      //   console.log("last card of page was deleted");
+      // }
+      console.log("on change: ", this.currentPage);
       this.applyFilters();
     }
   }
@@ -101,10 +92,33 @@ export class ProductsComponent implements OnInit {
       this.pageSize = 12;
     }
 
-    this.currentPage = 0;
+    // this.currentPage = 0;
     this.updatePagedProducts();
 
   }
+
+
+  onPageChange(event: PageEvent): void {
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.updatePagedProducts();
+  }
+
+  private updatePagedProducts(): void {
+    console.log("currentPage > 0: ", this.currentPage);
+    console.log("pagedProducts.length === 0: ", this.pagedProducts.length);
+
+    if (this.currentPage > 0 && this.pagedProducts.length === 0) {
+      this.currentPage--;
+      console.log("last card of page was deleted");
+    }
+
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    this.pagedProducts = this.products.slice(start, end);
+    console.log("update PagedProducts: ", this.currentPage);
+  }
+
 
   showMoreDetails(product: Product) {
     const dialogRef = this.dialog.open(ProductDetailsComponent, {
