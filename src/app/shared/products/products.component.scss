@@ -32,3 +32,27 @@
     }
   }
 }
+
+@media (max-width: 993px) {
+  app-card {
+    width: 33.33% !important;
+  }
+
+  @media (max-width: 769px) {
+  app-card {
+    width: 50% !important;
+  }
+
+  @media (max-width: 567px) {
+    .wrapper_products {
+      justify-content: center;
+  app-card {
+    min-width: 310px !important;
+  }
+  }
+
+}
+
+}
+
+}

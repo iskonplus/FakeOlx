@@ -59,13 +59,8 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges, event: PageEvent): void {
     if ((changes['favorites'] || changes['userCart'] || changes['userAdsId']) && this.products) {
-      // if (this.currentPage > 0 && this.pagedProducts.length === 0) {
-      //   this.currentPage--;
-      //   console.log("last card of page was deleted");
-      // }
-      console.log("on change: ", this.currentPage);
       this.applyFilters();
     }
   }
@@ -92,6 +87,11 @@ export class ProductsComponent implements OnInit {
       this.pageSize = 12;
     }
 
+    // if (this.currentPage > 0 && this.pagedProducts.length === 0) {
+    //   this.currentPage--;
+    //   console.log("last card of page was deleted");
+    // }
+
     // this.currentPage = 0;
     this.updatePagedProducts();
 
@@ -108,10 +108,10 @@ export class ProductsComponent implements OnInit {
     console.log("currentPage > 0: ", this.currentPage);
     console.log("pagedProducts.length === 0: ", this.pagedProducts.length);
 
-    if (this.currentPage > 0 && this.pagedProducts.length === 0) {
-      this.currentPage--;
-      console.log("last card of page was deleted");
-    }
+    // if (this.currentPage > 0 && this.pagedProducts.length === 0) {
+    //   this.currentPage--;
+    //   console.log("last card of page was deleted");
+    // }
 
     const start = this.currentPage * this.pageSize;
     const end = start + this.pageSize;

@@ -101,3 +101,35 @@
     pointer-events: none;
   }
 }
+
+@media (max-width: 576px) {
+  h2 {
+    margin-top: 0px;
+    margin-bottom: 25px !important;
+    font-size: 30px !important;
+    color: #002F34;
+  }
+
+  img {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  .card.disabled .img-wrapper::before {
+    width: 90px !important;
+    height: 90px !important;
+    top: 40% !important;
+  }
+
+  .card.disabled .img-wrapper::after {
+    width: 95px !important;
+
+  }
+
+}
+
+@media (hover: none) {
+  .card:not(.disabled):hover {
+    transform: none !important;
+  }
+}

@@ -3,7 +3,7 @@
   background-color: #002F34;
   position: fixed;
   z-index: 5;
-  top:0;
+  top: 0;
   left: 0;
 
   header {
@@ -11,13 +11,15 @@
     display: flex;
     margin: auto;
 
+
+
     .block_header {
-      width: 50%;
+      width: 25%;
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      img{
+      img {
         cursor: pointer;
       }
 
@@ -73,24 +75,73 @@
 
           li .navSubmit:hover {
             border-color: #ffffff;
-            color:#ffffff;
+            color: #ffffff;
             background-color: #002F34;
           }
 
         }
       }
     }
+
+    .block_header:last-child {
+      width: 75%;
+    }
   }
+
 }
 
-.user-actions{
+.user-actions {
   position: relative;
-  span{
+
+  span {
     color: #ffffff;
     position: absolute;
     left: 105%;
-    bottom:75%;
+    bottom: 75%;
     font-weight: 400;
     font-size: 12px;
   }
+}
+
+@media (max-width: 576px) {
+  // .block_header:first-child {
+  //   width: 25% !important;
+  // }
+
+  // .block_header:last-child {
+  //   width: 75% !important;
+
+  a {
+    font-size: 14px !important;
+
+    .mat-icon {
+      font-size: 16px !important;
+      height: 16px !important;
+      width: 16px !important;
+      margin-right: 6px !important;
+
+
+      // }
+    }
+  }
+
+  li {
+    justify-content: end;
+    margin-bottom: 10px;
+  }
+
+  button.navSubmit {
+    font-size: 12px !important;
+    padding: 6px !important;
+  }
+
+  @media (max-width: 370px) {
+    ul {
+      flex-wrap: wrap;
+    }
+
+
+
+  }
+
 }

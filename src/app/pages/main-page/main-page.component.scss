@@ -14,3 +14,12 @@ h2 {
   font-size: 35px;
   color: #002F34;
 }
+
+@media (max-width: 576px) {
+  h2 {
+    font-size: 25px !important;
+   margin-top: 0px !important;
+   margin-bottom: 25px !important;
+}
+
+}
