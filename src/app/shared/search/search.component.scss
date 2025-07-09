@@ -3,12 +3,12 @@
   margin: auto;
   display: flex;
   justify-content: center;
+  padding: 30px 5px;
 
   form {
     width: 100%;
     display: flex;
     margin: auto;
-    padding: 30px 5px;
 
 
     .wrapper_input {
@@ -103,4 +103,21 @@
       color: #002F34;
     }
   }
+}
+
+@media (max-width:720px) {
+  .wrapper_city{
+    display: none !important;
+  }
+@media (max-width:576px) {
+  button {
+    padding: 15px !important;
+    font-size: 15px !important;
+
+    mat-icon {
+      display: none;
+    }
+  }
+
+}
 }
