@@ -39,20 +39,27 @@
   }
 
   @media (max-width: 769px) {
-  app-card {
-    width: 50% !important;
-  }
+    app-card {
+      width: 50% !important;
+    }
 
-  @media (max-width: 567px) {
-    .wrapper_products {
-      justify-content: center;
-  app-card {
-    min-width: 310px !important;
-  }
-  }
+    @media (max-width: 567px) {
+      .wrapper_products {
+        justify-content: center;
 
-}
+        app-card {
+          min-width: 310px !important;
+        }
+      }
 
-}
+      ::ng-deep .mat-mdc-paginator-range-label {
+        width: 100% !important;
+        margin: 0 !important;
+        font-size: 12px !important;
+      }
+
+    }
+
+  }
 
 }
