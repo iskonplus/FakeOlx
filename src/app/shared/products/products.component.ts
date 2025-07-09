@@ -105,8 +105,8 @@ export class ProductsComponent implements OnInit {
   }
 
   private updatePagedProducts(): void {
-    console.log("currentPage > 0: ", this.currentPage);
-    console.log("pagedProducts.length === 0: ", this.pagedProducts.length);
+    // console.log("currentPage > 0: ", this.currentPage);
+    // console.log("pagedProducts.length === 0: ", this.pagedProducts.length);
 
     // if (this.currentPage > 0 && this.pagedProducts.length === 0) {
     //   this.currentPage--;
@@ -116,7 +116,7 @@ export class ProductsComponent implements OnInit {
     const start = this.currentPage * this.pageSize;
     const end = start + this.pageSize;
     this.pagedProducts = this.products.slice(start, end);
-    console.log("update PagedProducts: ", this.currentPage);
+    // console.log("update PagedProducts: ", this.currentPage);
   }
 
 
