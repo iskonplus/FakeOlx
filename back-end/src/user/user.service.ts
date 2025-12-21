@@ -22,6 +22,10 @@ export class UserService {
 
   private now = () => Math.floor(Date.now() / 1000);
 
+  getAllPublicUsers(): PublicUser[] {
+    return this.users.map((user) => this.getPublicUser(user));
+  }
+
   createUser(dto: CreateUserDto): PublicUser {
     const newUser = {
       id: randomUUID(),
