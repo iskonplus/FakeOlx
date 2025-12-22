@@ -5,6 +5,7 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
+  Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -14,8 +15,9 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
-@ApiTags('users')
+@ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(readonly userService: UserService) {}
@@ -37,5 +39,15 @@ export class UserController {
   @ApiCreatedResponse({ description: 'User created' })
   createUser(@Body() dto: CreateUserDto) {
     return this.userService.createUser(dto);
+  }
+
+  @Put('/:id')
+  @ApiBody({ type: UpdatePasswordDto })
+  @ApiOkResponse({ description: 'User password updated' })
+  updateUserPassword(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+    @Body() dto: UpdatePasswordDto,
+  ) {
+    return this.userService.updateUser(dto, id);
   }
 }

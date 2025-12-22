@@ -3,6 +3,7 @@ import { User } from './user.entity';
 import { PublicUser } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { randomUUID } from 'crypto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @Injectable()
 export class UserService {
@@ -46,5 +47,21 @@ export class UserService {
 
     this.users.push(newUser);
     return this.getPublicUser(newUser);
+  }
+
+  updateUser(dto: UpdatePasswordDto, id: string): PublicUser {
+    const user = this.users.find((user) => user.id === id);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    if (user.password !== dto.oldPassword) {
+      throw new Error('Old password is incorrect');
+    }
+
+    user.password = dto.newPassword;
+    user.version += 1;
+    user.updatedAt = this.now();
+
+    return this.getPublicUser(user);
   }
 }
