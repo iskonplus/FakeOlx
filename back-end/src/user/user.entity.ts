@@ -1,6 +1,7 @@
 export interface User {
   id: string;
-  login: string;
+  name: string;
+  email: string;
   password: string;
   version: number;
   createdAt: number;
@@ -9,7 +10,8 @@ export interface User {
 
 export interface PublicUser {
   id: string;
-  login: string;
+  name: string;
+  email: string;
   version: number;
   createdAt: number;
   updatedAt: number | null;

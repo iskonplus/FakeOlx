@@ -3,23 +3,22 @@ import { forkJoin, Subscription } from 'rxjs';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../pages/login-page/services/login.service';
-import { User } from '../../types/user';
+import { CreateUser } from '../../types/user';
 import { Router } from '@angular/router';
 import { CardService } from '../../shared/card/card.service';
 import { ActiveUser } from '../../types/active-user';
 import { ProductsService } from '../../services/products.service';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  userData: User = {
+  userData: CreateUser = {
     name: '',
     email: '',
-    password: ''
+    password: '',
   };
 
   loginSubscription?: Subscription;
@@ -28,14 +27,13 @@ export class LoginComponent {
   @Output() loginFailed = new EventEmitter<string>();
   @Output() showSpinner = new EventEmitter<void>();
 
-
-  constructor(private loginService: LoginService,
+  constructor(
+    private loginService: LoginService,
     private router: Router,
     private cardService: CardService,
     private productService: ProductsService,
     private errorService: ErrorService
-  ) { }
-
+  ) {}
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -50,16 +48,19 @@ export class LoginComponent {
     this.userData.email = this.loginForm.get('email')?.value ?? '';
     this.userData.password = this.loginForm.get('password')?.value ?? '';
 
-    this.loginSubscription = this.loginService.userLogin(this.userData)
+    this.loginSubscription = this.loginService
+      .userLogin(this.userData)
       .subscribe({
-        next: user => {
+        next: (user) => {
           this.handleLoginSuccess(user[0]);
         },
-        error: (err) => { this.showSpinner.emit(), this.loginFailed.emit('User ' + err.statusText + ', try again.') },
-        complete: () => this.showSpinner.emit()
-      })
+        error: (err) => {
+          this.showSpinner.emit(),
+            this.loginFailed.emit('User ' + err.statusText + ', try again.');
+        },
+        complete: () => this.showSpinner.emit(),
+      });
   }
-
 
   handleLoginSuccess(user: ActiveUser) {
     this.loginService.setUser(user);
@@ -74,8 +75,7 @@ export class LoginComponent {
         this.router.navigate(['/']);
         this.loginForm.reset();
       },
-      error: (err) => this.errorService.handleError(err.message)
-
+      error: (err) => this.errorService.handleError(err.message),
     });
   }
 
@@ -83,6 +83,4 @@ export class LoginComponent {
     this.loginSubscription?.unsubscribe();
     this.loginDataSubscription?.unsubscribe();
   }
-
-
 }

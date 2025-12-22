@@ -1,30 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { User } from './user.entity';
 import { PublicUser } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { randomUUID } from 'crypto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { getUsers, getPublicUser } from 'src/db/db';
 
 @Injectable()
 export class UserService {
-  users: User[] = [];
-
-  private getPublicUser(user: User): PublicUser {
-    const publicUser = {
-      id: user.id,
-      login: user.login,
-      version: user.version,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-    };
-
-    return publicUser;
-  }
-
+  private users = getUsers();
   private now = () => Math.floor(Date.now() / 1000);
 
   getAllUsers(): PublicUser[] {
-    return this.users.map((user) => this.getPublicUser(user));
+    return this.users.map((user) => getPublicUser(user));
   }
 
   findOne(id: string): PublicUser {
@@ -32,13 +19,14 @@ export class UserService {
     if (!user) {
       throw new Error('User not found');
     }
-    return this.getPublicUser(user);
+    return getPublicUser(user);
   }
 
   createUser(dto: CreateUserDto): PublicUser {
     const newUser = {
       id: randomUUID(),
-      login: dto.login,
+      name: dto.name,
+      email: dto.email,
       password: dto.password,
       version: 1,
       createdAt: this.now(),
@@ -46,7 +34,7 @@ export class UserService {
     };
 
     this.users.push(newUser);
-    return this.getPublicUser(newUser);
+    return getPublicUser(newUser);
   }
 
   updateUser(dto: UpdatePasswordDto, id: string): PublicUser {
@@ -62,7 +50,7 @@ export class UserService {
     user.version += 1;
     user.updatedAt = this.now();
 
-    return this.getPublicUser(user);
+    return getPublicUser(user);
   }
 
   deleteUser(id: string): void {

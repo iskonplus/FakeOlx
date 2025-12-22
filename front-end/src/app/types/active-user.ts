@@ -4,4 +4,9 @@ export interface ActiveUser {
   email: string;
   password: string;
   id: string;
+  version: number;
+  createdAt: number;
+  updatedAt: number | null;
 }
+
+
