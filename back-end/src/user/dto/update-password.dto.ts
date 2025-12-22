@@ -6,7 +6,7 @@ export class UpdatePasswordDto {
   @IsString()
   oldPassword: string;
 
-  @ApiProperty({ example: '654321' })
+  @ApiProperty({ example: '654321', minLength: 3 })
   @IsString()
   @MinLength(3)
   newPassword: string;

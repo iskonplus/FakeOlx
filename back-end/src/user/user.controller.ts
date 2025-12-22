@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
   Param,
   ParseUUIDPipe,
   Post,
@@ -12,6 +14,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import {
   ApiBody,
   ApiCreatedResponse,
+  ApiNoContentResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -49,5 +52,12 @@ export class UserController {
     @Body() dto: UpdatePasswordDto,
   ) {
     return this.userService.updateUser(dto, id);
+  }
+
+  @Delete('/:id')
+  @HttpCode(204)
+  @ApiNoContentResponse({ description: 'User deleted' })
+  deleteUser(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    return this.userService.deleteUser(id);
   }
 }
