@@ -18,7 +18,8 @@ export class LoginService {
   newUserCart!: UserCart;
   newUserAds!: UserAds;
 
-  baseUrl = "https://6802395481c7e9fbcc44db3c.mockapi.io/fakeOlx/";
+  // baseUrl = "https://6802395481c7e9fbcc44db3c.mockapi.io/fakeOlx/";
+  baseUrl = "http://localhost:4545";
   urlCreateUserProduct = 'https://682896b46075e87073a44738.mockapi.io/notOlx/';
 
 
@@ -36,7 +37,8 @@ export class LoginService {
         'Content-Type': 'application/json'
       }),
     };
-    return this.http.post<ActiveUser>(this.baseUrl + '/users', userData, httpOptions);
+    // return this.http.post<ActiveUser>(this.baseUrl + '/users', userData, httpOptions);
+    return this.http.post<ActiveUser>(this.baseUrl + '/user', userData, httpOptions);
   }
 
   createUserCart(userId: string) {
