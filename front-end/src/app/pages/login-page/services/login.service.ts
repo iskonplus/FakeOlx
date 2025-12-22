@@ -18,30 +18,30 @@ export class LoginService {
   newUserAds!: UserAds;
 
   // baseUrl = "https://6802395481c7e9fbcc44db3c.mockapi.io/fakeOlx/";
-  baseUrl = 'http://localhost:4545';
+  baseUrl = 'http://localhost:4545/api';
   urlCreateUserProduct = 'https://682896b46075e87073a44738.mockapi.io/notOlx/';
 
   constructor(private http: HttpClient) {}
 
-  userLogin(userData: CreateUser): Observable<ActiveUser[]> {
-    return this.http.get<ActiveUser[]>(
-      `${this.baseUrl}/users?email=${userData.email}&password=${userData.password}`
-    );
-  }
-
-  // UserLogin(userData: UserLogin): Observable<ActiveUser[]> {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //     }),
-  //   };
-
-  //   return this.http.post<ActiveUser[]>(
-  //     `${this.baseUrl}/user`,
-  //     userData,
-  //     httpOptions
+  // userLogin(userData: CreateUser): Observable<ActiveUser[]> {
+  //   return this.http.get<ActiveUser[]>(
+  //     `${this.baseUrl}/users?email=${userData.email}&password=${userData.password}`
   //   );
   // }
+
+  UserLogin(userData: UserLogin): Observable<ActiveUser[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.post<ActiveUser[]>(
+      `${this.baseUrl}/auth/login`,
+      userData,
+      httpOptions
+    );
+  }
 
   userRegistration(userData: UserLogin): Observable<ActiveUser> {
     const httpOptions = {
@@ -51,7 +51,7 @@ export class LoginService {
     };
     // return this.http.post<ActiveUser>(this.baseUrl + '/users', userData, httpOptions);
     return this.http.post<ActiveUser>(
-      this.baseUrl + '/user',
+      this.baseUrl + '/auth/signup',
       userData,
       httpOptions
     );

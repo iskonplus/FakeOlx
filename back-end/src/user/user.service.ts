@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { PublicUser } from './user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { randomUUID } from 'crypto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { getUsers, getPublicUser } from 'src/db/db';
 
@@ -20,21 +18,6 @@ export class UserService {
       throw new Error('User not found');
     }
     return getPublicUser(user);
-  }
-
-  createUser(dto: CreateUserDto): PublicUser {
-    const newUser = {
-      id: randomUUID(),
-      name: dto.name,
-      email: dto.email,
-      password: dto.password,
-      version: 1,
-      createdAt: this.now(),
-      updatedAt: null,
-    };
-
-    this.users.push(newUser);
-    return getPublicUser(newUser);
   }
 
   updateUser(dto: UpdatePasswordDto, id: string): PublicUser {

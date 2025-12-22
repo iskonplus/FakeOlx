@@ -6,14 +6,14 @@ import {
   HttpCode,
   Param,
   ParseUUIDPipe,
-  Post,
+  // Post,
   Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
+// import { CreateUserDto } from './dto/create-user.dto';
 import {
   ApiBody,
-  ApiCreatedResponse,
+  // ApiCreatedResponse,
   ApiNoContentResponse,
   ApiOkResponse,
   ApiTags,
@@ -37,12 +37,12 @@ export class UserController {
     return this.userService.findOne(id);
   }
 
-  @Post()
-  @ApiBody({ type: CreateUserDto })
-  @ApiCreatedResponse({ description: 'User created' })
-  createUser(@Body() dto: CreateUserDto) {
-    return this.userService.createUser(dto);
-  }
+  // @Post()
+  // @ApiBody({ type: CreateUserDto })
+  // @ApiCreatedResponse({ description: 'User created' })
+  // createUser(@Body() dto: CreateUserDto) {
+  //   return this.userService.createUser(dto);
+  // }
 
   @Put('/:id')
   @ApiBody({ type: UpdatePasswordDto })
