@@ -22,8 +22,16 @@ export class UserService {
 
   private now = () => Math.floor(Date.now() / 1000);
 
-  getAllPublicUsers(): PublicUser[] {
+  getAllUsers(): PublicUser[] {
     return this.users.map((user) => this.getPublicUser(user));
+  }
+
+  findOne(id: string): PublicUser {
+    const user = this.users.find((user) => user.id === id);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return this.getPublicUser(user);
   }
 
   createUser(dto: CreateUserDto): PublicUser {

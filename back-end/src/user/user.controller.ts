@@ -1,7 +1,19 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Post,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { ApiBody, ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('users')
 @Controller('user')
@@ -9,8 +21,15 @@ export class UserController {
   constructor(readonly userService: UserService) {}
 
   @Get()
+  @ApiOkResponse({ description: 'Returns a list of all users' })
   getAllUsers() {
-    return this.userService.getAllPublicUsers();
+    return this.userService.getAllUsers();
+  }
+
+  @Get('/:id')
+  @ApiOkResponse({ description: 'Return user by id' })
+  getUserById(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    return this.userService.findOne(id);
   }
 
   @Post()
