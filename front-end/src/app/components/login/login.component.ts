@@ -3,7 +3,7 @@ import { forkJoin, Subscription } from 'rxjs';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../pages/login-page/services/login.service';
-import { CreateUser } from '../../types/user';
+import { UserLogin } from '../../types/user';
 import { Router } from '@angular/router';
 import { CardService } from '../../shared/card/card.service';
 import { ActiveUser } from '../../types/active-user';
@@ -15,8 +15,8 @@ import { ProductsService } from '../../services/products.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  userData: CreateUser = {
-    name: '',
+
+  userData: UserLogin = {
     email: '',
     password: '',
   };
@@ -52,11 +52,11 @@ export class LoginComponent {
       .userLogin(this.userData)
       .subscribe({
         next: (user) => {
-          this.handleLoginSuccess(user[0]);
+          this.handleLoginSuccess(user);
         },
         error: (err) => {
           this.showSpinner.emit(),
-            this.loginFailed.emit('User ' + err.statusText + ', try again.');
+            this.loginFailed.emit(err.error.message + ', try again.');
         },
         complete: () => this.showSpinner.emit(),
       });

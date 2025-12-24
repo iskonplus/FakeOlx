@@ -29,14 +29,14 @@ export class LoginService {
   //   );
   // }
 
-  UserLogin(userData: UserLogin): Observable<ActiveUser[]> {
+  userLogin(userData: UserLogin): Observable<ActiveUser> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
 
-    return this.http.post<ActiveUser[]>(
+    return this.http.post<ActiveUser>(
       `${this.baseUrl}/auth/login`,
       userData,
       httpOptions
@@ -51,7 +51,7 @@ export class LoginService {
     };
     // return this.http.post<ActiveUser>(this.baseUrl + '/users', userData, httpOptions);
     return this.http.post<ActiveUser>(
-      this.baseUrl + '/auth/signup',
+      `${this.baseUrl}/auth/signup`,
       userData,
       httpOptions
     );

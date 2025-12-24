@@ -6,14 +6,11 @@ import {
   HttpCode,
   Param,
   ParseUUIDPipe,
-  // Post,
   Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-// import { CreateUserDto } from './dto/create-user.dto';
 import {
   ApiBody,
-  // ApiCreatedResponse,
   ApiNoContentResponse,
   ApiOkResponse,
   ApiTags,

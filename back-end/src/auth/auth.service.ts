@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { PublicUser } from './auth.entity';
 import { randomUUID } from 'crypto';
@@ -39,7 +39,7 @@ export class AuthService {
     );
 
     if (!user) {
-      throw new Error('User not found');
+      throw new NotFoundException('User not found');
     }
 
     return getPublicUser(user);

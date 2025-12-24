@@ -59,7 +59,7 @@ export class RegistrationComponent {
           this.registrationSuccess.emit();
         },
         error: (err) =>
-          this.registrationFailed.emit(err.statusText + ', try again.'),
+          this.registrationFailed.emit(err.error.message + ', try again.'),
         complete: () => {
           this.loginForm.reset({
             name: '',
